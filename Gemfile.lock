@@ -49,11 +49,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mongo (1.0.9)
-      bson (>= 1.0.5)
-    mongoid (2.0.0.beta.19)
+    mongo (1.2.4)
+      bson (>= 1.2.4)
+    mongoid (2.0.0.rc.8)
       activemodel (~> 3.0)
-      mongo (= 1.0.9)
+      mongo (~> 1.2)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
     polyglot (0.3.1)
@@ -90,5 +90,5 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   heroku
-  mongoid (= 2.0.0.beta.19)
+  mongoid (= 2.0.0.rc.8)
   rails (= 3.0.5)
