@@ -5,7 +5,7 @@ gem 'rails', '3.0.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mongoid', '2.0.0.rc.8'
+gem 'mongo_mapper'
 gem 'bson_ext'
 gem 'heroku'
 # Use unicorn as the web server
