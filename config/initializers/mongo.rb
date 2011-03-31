@@ -1,5 +1,5 @@
-if ENV['MONGOHQ_URL']
-  MongoMapper.config = {RAILS_ENV => {'uri' => ENV['MONGOHQ_URL']}}
+if ENV['MONGO_URI']
+  MongoMapper.config = {RAILS_ENV => {'uri' => ENV['MONGO_URI']}}
 else
   MongoMapper.config = {RAILS_ENV => {'uri' => 'mongodb://localhost/sushi'}}
 end
