@@ -7,10 +7,12 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  host: localhost
   database: bragi_development
 
 test:
   <<: *defaults
+  host: localhost
   database: bragi_test
 
 # set these environment variables on your prod server
