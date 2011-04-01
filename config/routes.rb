@@ -1,4 +1,6 @@
 Bragi::Application.routes.draw do
+  resource :posts,:only => ["index", "show"]
+  root :to => "posts#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
