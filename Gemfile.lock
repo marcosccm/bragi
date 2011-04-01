@@ -52,6 +52,7 @@ GEM
       abstract (>= 1.0.0)
     ffi (1.0.7)
       rake (>= 0.8.7)
+    haml (3.0.25)
     heroku (1.19.1)
       activesupport (>= 2.1.0)
       launchy (~> 0.3.2)
@@ -131,6 +132,7 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   capybara!
+  haml
   heroku
   mongoid (= 2.0.0.rc.8)
   rails (= 3.0.5)
