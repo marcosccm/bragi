@@ -9,6 +9,7 @@ gem 'mongoid', '2.0.0.rc.8'
 gem 'bson_ext'
 gem 'heroku'
 gem "haml"
+gem "bcrypt-ruby", :require => "bcrypt"
 # Use unicorn as the web server
 # gem 'unicorn'
 
