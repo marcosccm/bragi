@@ -10,6 +10,13 @@ class Author
 
   before_create :encrypt_password
 
+  def self.authenticate(email, password)
+    author = first(:conditions => { :email => email})
+    if author && author.password_hash = BCrypt::Engine.hash_secret(password, author.password_salt)
+      author
+    end
+  end
+
   private
   def encrypt_password
     self.password_salt = BCrypt::Engine.generate_salt

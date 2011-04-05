@@ -15,4 +15,16 @@ describe Author do
       author.password_hash.should_not be_nil
     end
   end
+
+  describe "when an author is authenticated" do
+    it "should return an author if the passed parameters are valid" do
+      author = Author.new(:email => "marcosccm@gmail.com", :password => "teste")
+      author.save
+      Author.authenticate("marcosccm@gmail.com", "test").should eq(author)
+    end
+
+    it "should return nil if the passed parameters are invalid" do
+      Author.authenticate("dont@exist.com", "test").should be_nil
+    end
+  end
 end
