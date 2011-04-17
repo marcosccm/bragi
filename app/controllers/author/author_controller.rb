@@ -1,4 +1,4 @@
-class AuthorController < ApplicationController
+class Author::AuthorController < ApplicationController
   before_filter :check_logged_author
 
   private
