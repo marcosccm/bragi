@@ -10,6 +10,7 @@ gem 'bson_ext'
 gem 'heroku'
 gem "haml"
 gem "bcrypt-ruby", :require => "bcrypt"
+gem "decent_exposure"
 # Use unicorn as the web server
 # gem 'unicorn'
 
