@@ -10,9 +10,9 @@ describe "Post" do
       p.errors.should include(:body => ["can't be blank"])
     end
 
-    it "should generate a slug based on the title" do
+    it "should use the title as the key" do
       p = Post.create!(:title => "a cool post", :body => "cool content")
-      p.slug.should == "a_cool_post"
+      p.id.should == "a-cool-post"
     end
   end
 end

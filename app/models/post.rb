@@ -1,15 +1,12 @@
 class Post
   include Mongoid::Document
+  include Mongoid::Timestamps
+
   field :title
   field :body
-  field :slug
+  key :title
 
-  before_create :create_slug
+  attr_accessible :title, :body
   validates :title, :presence => true
   validates :body, :presence => true
-
-  private
-  def create_slug
-    self.slug = self.title.gsub(/[^a-z0-9']+/, "_")
-  end
 end

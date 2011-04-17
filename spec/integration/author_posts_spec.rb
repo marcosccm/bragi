@@ -30,8 +30,6 @@ describe "Author Posts Area" do
       fill_in 'Body', :with => "another post body"
       click_on "Save"
       page.should have_content("Post edited successfully")
-      page.should have_content("another post title")
-      page.should have_content("another post body")
     end
 
     it "should be able to delete posts" do
