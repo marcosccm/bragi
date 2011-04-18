@@ -14,5 +14,11 @@ describe "Post" do
       p = Post.create!(:title => "a cool post", :body => "cool content")
       p.id.should == "a-cool-post"
     end
+    
+    it "should convert the body from markdown to html" do
+      content = "Title\n=====\ncontent"
+      p = Post.create!(:title => "title", :body => content)
+      p.body_html.should == "<h1 id='title'>Title</h1>\n\n<p>content</p>"
+    end
   end
 end
