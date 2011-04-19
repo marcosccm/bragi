@@ -1,0 +1,57 @@
+#wrapper {
+  width: 960px;
+  margin: 0 auto;
+  font-size: 13px; }
+  #wrapper p {
+    font-family: Helvetica, Arial;
+    color: #333333;
+    line-height: 1.5em; }
+
+#links {
+  float: left;
+  width: 300px;
+  list-style: none;
+  padding: 20px 0; }
+  #links li {
+    float: right;
+    margin-left: 10px; }
+    #links li a {
+      color: #333333;
+      font-size: 1.5em;
+      text-decoration: none; }
+    #links li a:hover {
+      text-decoration: underline; }
+
+#title {
+  width: 650px;
+  float: left;
+  padding: 20px 0; }
+  #title h1 {
+    font-family: Garamond;
+    font-size: 4em;
+    color: #333333;
+    margin: 0; }
+  #title h2 {
+    font-size: 1.5em;
+    color: #666666;
+    margin: 0; }
+
+#content {
+  float: left; }
+
+.post {
+  border-bottom: dashed 1px #333333;
+  padding-bottom: 10px;
+  margin-bottom: 10px; }
+  .post h2 {
+    color: #333333;
+    margin: 0;
+    font-size: 2em; }
+  .post .date {
+    color: #666666; }
+  .post blockquote {
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: solid 2px #333333; }
+    .post blockquote p {
+      font-family: "times new roman"; }

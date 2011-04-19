@@ -1,4 +1,5 @@
-%h1 Posts
-%ul
-  - @posts.each do |post|
-    %li= post.body
+- @posts.each do |post|
+  .post
+    %h2= post.title
+    %span.date= post.created_at.strftime("%B %d, %Y") 
+    = raw post.body_html
