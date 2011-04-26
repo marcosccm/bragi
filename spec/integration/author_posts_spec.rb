@@ -23,7 +23,7 @@ describe "Author Posts Area" do
     it "should be able to edit posts" do
       Post.create!(:title => "a cool post title", :body => "cool post body")
       visit author_posts_path
-      within( "li:first") do
+      within("#posts li:first") do
         click_link "edit"
       end
       fill_in 'Title', :with => "another post title"
@@ -35,7 +35,7 @@ describe "Author Posts Area" do
     it "should be able to delete posts" do
       Post.create!(:title => "i am to young to die", :body => "help")
       visit author_posts_path
-      within("li:first") { click_link "remove" }
+      within("#posts li:first") { click_link "remove" }
       page.should have_content("Post removed successfully")
       page.should_not  have_content("i am to young to die")
       page.should_not  have_content("help")
