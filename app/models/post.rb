@@ -14,6 +14,6 @@ class Post
 
   private
   def update_html_body
-    self.body_html = Maruku.new(self.body).to_html
+    self.body_html = Redcarpet.new(self.body).to_html
   end
 end

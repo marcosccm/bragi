@@ -8,7 +8,7 @@ gem 'heroku'
 gem "haml"
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "decent_exposure"
-gem "maruku"
+gem "redcarpet"
 
 group :development, :test do
   gem 'capybara', :git => "https://github.com/jnicklas/capybara.git"

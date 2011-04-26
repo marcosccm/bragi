@@ -100,6 +100,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
+    redcarpet (1.11.2)
     rest-client (1.6.1)
       mime-types (>= 1.16)
     rspec (2.5.0)
@@ -144,5 +145,6 @@ DEPENDENCIES
   maruku
   mongoid (= 2.0.0.rc.8)
   rails (= 3.0.5)
+  redcarpet
   rspec-rails
   watchr
