@@ -1,7 +1,7 @@
 $light-gray: #D3CFD0
 $medium-gray: #666
 $dark-gray: #333
-$blue: #235E8C
+$blue: #2C5BA3
 
 #wrapper
   width: 960px
@@ -12,25 +12,10 @@ $blue: #235E8C
     color: $dark-gray
     line-height: 1.5em
 
-#links
-  float: left
-  width: 300px
-  list-style: none
-  padding: 20px 0
-  li
-    float: right
-    margin-left: 10px
-    a
-      color: $dark-gray
-      font-size: 1.5em
-      font-weight:bold
-      text-decoration: none
-    a:hover
-      text-decoration: underline
 #title
-  width: 650px
-  float: left
-  padding: 20px 0
+  border-bottom: solid 3px $dark-gray
+  padding-bottom: 10px
+  margin-bottom: 10px
 
   h1
     font-family: Garamond
@@ -42,20 +27,15 @@ $blue: #235E8C
     color: $medium-gray
     margin: 0 
 
-#content
-  float: left
-
 .post
   border-bottom: dashed 1px $dark-gray
   padding-bottom: 10px
   margin-bottom: 10px
 
-  h2
-    color: $blue
-    margin: 0
+  h1
+    color: $dark-gray
     font-size: 2em
-  .date
-    color: $medium-gray
+
   blockquote
     margin-left: 20px
     padding-left: 10px

@@ -1,9 +1,9 @@
-#wrapper {
-  width: 960px;
-  margin: 0 auto;
-  font-size: 13px; }
-  #wrapper p {
-    font-family: Helvetica, Arial;
+  #wrapper {
+    width: 960px;
+    margin: 0 auto;
+    font-size: 20px; }
+    #wrapper p {
+    font-family: 'Quattrocento Sans', Arial;
     color: #333333;
     line-height: 1.5em; }
 
@@ -16,6 +16,7 @@
     float: right;
     margin-left: 10px; }
     #links li a {
+      font-family: 'Yanone Kaffeesatz';
       color: #333333;
       font-size: 1.5em;
       text-decoration: none; }
@@ -27,12 +28,13 @@
   float: left;
   padding: 20px 0; }
   #title h1 {
-    font-family: Garamond;
-    font-size: 4em;
+    font-family: 'Yanone Kaffeesatz';
+    font-size: 3.5em;
+    font-weight: normal;
     color: #333333;
     margin: 0; }
   #title h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #666666;
     margin: 0; }
 
@@ -44,7 +46,9 @@
   padding-bottom: 10px;
   margin-bottom: 10px; }
   .post h2 {
+    font-weight: normal;
     color: #333333;
+    font-family: 'Yanone Kaffeesatz';
     margin: 0;
     font-size: 2em; }
   .post .date {
