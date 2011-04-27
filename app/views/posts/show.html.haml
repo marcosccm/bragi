@@ -1,0 +1,4 @@
+.post
+  %h2= post.title 
+  %span.date= post.created_at.strftime("%B %d, %Y") 
+  = raw post.body_html

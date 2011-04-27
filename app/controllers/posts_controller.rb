@@ -1,5 +1,10 @@
 class PostsController < ApplicationController
+  expose(:post)
+  expose(:posts) { Post.all }
+
   def index
-    @posts = Post.all
+  end
+
+  def show
   end
 end
