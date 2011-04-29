@@ -10,7 +10,6 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem "decent_exposure"
 gem "redcarpet"
 gem "jquery-rails"
-gem "disqus"
 
 group :development, :test do
   gem 'capybara', :git => "https://github.com/jnicklas/capybara.git"
