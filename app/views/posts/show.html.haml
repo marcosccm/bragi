@@ -3,7 +3,17 @@
   %span.date= post.created_at.strftime("%B %d, %Y") 
   = raw post.body_html
   .section
-    %div#disqust_thread
+    %div#disqus_thread
+
 :javascript
   var disqus_developer = 1
-%script{ :type => "text/javascript", :src => "http://disqus.com/forums/poemofbragi/embed.js"} '
+  var disqus_shortname = 'poemofbragi'; 
+  var disqus_identifier = '#{post.id}';
+  var disqus_url = '#{post_path(post)}
+
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+
