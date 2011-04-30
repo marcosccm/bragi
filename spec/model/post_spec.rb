@@ -1,24 +1,26 @@
+require "spec_helper"
+
 describe "Post" do
-  describe "when a post is created" do
-    it "should validate the presence of a title" do
-      p = Post.create
-      p.errors.should include(:title => ["can't be blank"])
-    end
-
-    it "should validate the presence of a body" do
-      p = Post.create
-      p.errors.should include(:body => ["can't be blank"])
-    end
-
-    it "should use the title as the key" do
-      p = Post.create!(:title => "a cool post", :body => "cool content")
-      p.id.should == "a-cool-post"
+  describe "can be created from a file" do
+    before(:each) do
+      path = File.expand_path("../../fixtures/test_post_1", __FILE__)
+      @post = Post.new(path)
     end
     
-    it "should convert the body from markdown to html" do
-      content = "Title\n=====\ncontent"
-      p = Post.create!(:title => "title", :body => content)
-      p.body_html.should == "<h1>Title</h1>\n\n<p>content</p>\n"
+    it "with a title" do
+      @post.title.should == "test post"
+    end
+
+    it "with a published_at date" do
+      @post.published_at.should == DateTime.new(1986, 8, 5)
+    end
+
+    it "with a slug based on the title" do
+      @post.slug.should  == "test-post"
+    end
+    
+    it "with a mardown body" do
+      @post.body.should == "<h1>Title</h1>\n\n<p>content</p>\n"
     end
   end
 end
