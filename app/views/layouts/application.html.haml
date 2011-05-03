@@ -16,10 +16,9 @@
         Marcos Castilho
 
     %ul#links
-      %li= link_to "About"
-      %li= link_to "Github"
-      %li= link_to "Twitter"
-      %li= link_to "Feed"
+      %li= link_to "Github", "http://www.github.com/marcosccm"
+      %li= link_to "Twitter", "http://www.twitter.com/marcosccm"
+      %li= link_to "Feed", posts_path(:format => :atom)
     
     %div#content  
       - flash.each do |name, msg|
