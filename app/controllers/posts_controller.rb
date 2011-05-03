@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  expose(:post)
-  expose(:posts) { Post.all }
+  expose(:post) { Posts.find(params[:id]) }
+  expose(:posts) { Posts.all }
 
   def index
   end

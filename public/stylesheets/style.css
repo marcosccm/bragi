@@ -41,12 +41,14 @@
     margin: 0; }
 
 #content {
-  float: left; }
+  float: left;
+  width: 100%; }
 
 .post {
   border-bottom: dashed 1px #333333;
   padding-bottom: 10px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  width: 100%; }
   .post h2 {
     color: #235e8c;
     font-family: "Yanone Kaffeesatz", Garamond, serif;
@@ -56,6 +58,7 @@
   .post a:visited {
     color: #235e8c; }
   .post a {
+    color: #235e8c;
     text-decoration: none; }
   .post .date {
     color: #666666;

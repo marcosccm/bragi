@@ -1,5 +1,6 @@
 class Post
   attr_accessor :title, :body, :published_at, :slug
+  alias :id :slug
 
   def initialize(file)
     extract_content_from_file(file)

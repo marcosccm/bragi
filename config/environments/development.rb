@@ -22,6 +22,6 @@ Bragi::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
-  ENV['posts_path'] = "public/posts"
+  ENV['posts_path'] = File.expand_path("../../../public/posts", __FILE__)
 end
 

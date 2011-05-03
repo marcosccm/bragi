@@ -1,5 +1,5 @@
 - posts.each do |post|
   .post
-    %h2= link_to post.title, post_path(post)
-    %span.date= post.created_at.strftime("%B %d, %Y") 
-    = raw post.body_html
+    %h2= link_to post.title, post_path(post.slug)
+    %span.date= post.published_at.strftime("%B %d, %Y") 
+    = raw post.body
