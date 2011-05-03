@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
   def index
     respond_to do |format|
+      format.html
       format.atom
     end
   end
