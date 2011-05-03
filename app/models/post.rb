@@ -17,7 +17,7 @@ class Post
     meta = YAML::parse(raw_data)["metadata"] 
     @title = meta["title"].value
     @slug = @title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-    @published_at = DateTime.parse(meta["published_at"].value)
+    @published_at = Date.parse(meta["published_at"].value)
   end
 
   def load_body(body)
