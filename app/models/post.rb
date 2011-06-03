@@ -6,6 +6,9 @@ class Post
     extract_content_from_file(file)
   end
 
+  def formated_date
+    @published_at.strftime("%B %d, %Y") if @published_at
+  end
   private
   def extract_content_from_file(file)
     chunks = File.read(file).split("\n\n")
@@ -13,14 +16,22 @@ class Post
     load_body(chunks[1])
   end
 
-  def load_metadata(raw_data)
-    meta = YAML::parse(raw_data)["metadata"] 
-    @title = meta["title"].value
-    @slug = @title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-    @published_at = Date.parse(meta["published_at"].value)
+  def load_metadata(raw_data = "")
+    meta = YAML.load(raw_data) 
+    load_title(meta) if meta.has_key? :title
+    load_published_at(meta) if meta.has_key? :published_at
   end
 
-  def load_body(body)
+  def load_title(meta)
+    @title = meta[:title]
+    @slug = @title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  end
+
+  def load_published_at(meta)
+    @published_at = meta[:published_at]
+  end
+
+  def load_body(body = "")
     @body = Redcarpet.new(body).to_html
   end
 end

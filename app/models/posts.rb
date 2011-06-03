@@ -8,6 +8,10 @@ class Posts
     all.select  { |post| post.slug == slug }[0]
   end
 
+  def self.clear
+    @posts = nil
+  end
+
   private
   def self.load_posts
     Dir["#{ENV['posts_path']}/*"].map { |file| Post.new(file) } 
