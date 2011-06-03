@@ -3,8 +3,9 @@ require "spec_helper"
 describe "Post" do
   describe "can be created from a file" do
     before(:each) do
-      path = File.expand_path("../../fixtures/test_post_1", __FILE__)
-      @post = Post.new(path)
+      @post = PostFactory.create('post_1', :title => "test post", 
+                                           :published_at => "1986-08-05",
+                                           :body => "# Title\ncontent")
     end
     
     it "with a title" do

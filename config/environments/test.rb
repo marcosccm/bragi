@@ -32,5 +32,5 @@ Bragi::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  ENV["posts_path"] = "spec/fixtures"
+  ENV["posts_path"] = "#{::Rails.root.to_s}/spec/fixtures"
 end
