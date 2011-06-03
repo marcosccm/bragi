@@ -4,7 +4,7 @@ class PostFactory
 
     File.open(file_path,"w") do |f|
       f.puts(":title: #{data[:title]}")  
-      f.puts(":published_at: #{data[:published_at]}")
+      f.puts(":published_at: #{data.has_key?(:published_at) ?  data[:published_at] : "05/08/2000"}")
       f.puts("\n\n")
       f.puts(data[:body])
     end

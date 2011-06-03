@@ -28,7 +28,7 @@ class Post
   end
 
   def load_published_at(meta)
-    @published_at = meta[:published_at]
+    @published_at = Date.parse meta[:published_at]
   end
 
   def load_body(body = "")

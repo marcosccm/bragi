@@ -4,7 +4,7 @@ describe "Post" do
   describe "can be created from a file" do
     before(:each) do
       @post = PostFactory.create('post_1', :title => "test post", 
-                                           :published_at => "1986-08-05",
+                                           :published_at => "05/08/1986",
                                            :body => "# Title\ncontent")
     end
     
