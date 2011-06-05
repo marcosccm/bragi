@@ -11,7 +11,7 @@ class Post
   end
   private
   def extract_content_from_file(file)
-    chunks = File.read(file).split("\n\n")
+    chunks = File.read(file).split("***")
     load_metadata(chunks[0])
     load_body(chunks[1])
   end
