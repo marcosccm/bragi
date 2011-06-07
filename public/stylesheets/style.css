@@ -33,6 +33,12 @@
     font-size: 3.5em;
     color: #333333;
     margin: 0; }
+    #title h1 a {
+      text-decoration: none;
+      color: #333333; }
+    #title h1 a:visited {
+      text-decoration: none;
+      color: #333333; }
   #title h2 {
     font-size: 1.2em;
     font-family: "Quattrocento Sans", Arial;
