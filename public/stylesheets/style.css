@@ -55,6 +55,11 @@
     margin: 0;
     font-weight: normal;
     font-size: 2em; }
+  .post h3 {
+    color: #235e8c;
+    font-family: "Yanone Kaffeesatz", Garamond, serif;
+    font-weight: normal;
+    font-size: 1.5em; }
   .post a:visited {
     color: #235e8c; }
   .post a {
