@@ -41,4 +41,14 @@ describe "Post" do
       @post.body.gsub(/\n/, '').should == "<h1>Title</h1><p>paragraph 1</p><p>paragraph 2</p><p>paragraph 3</p>"
     end
   end
+
+  describe "with a title with multiple dashes" do
+    before(:each) do
+      @post = PostFactory.create('post_1', :title => "test post - Part 1 - genesis")
+    end
+
+    it "has the correct slug" do
+      @post.slug.should == "test-post-part-1-genesis" 
+    end
+  end
 end

@@ -31,7 +31,7 @@ class Post
 
   def load_title(meta)
     @title = meta["title"]
-    @slug = @title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+    @slug = @title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '').gsub(/-+/, '-')
   end
 
   def load_header(meta)
