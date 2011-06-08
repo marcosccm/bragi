@@ -4,6 +4,10 @@ class Posts
     @posts
   end
 
+  def self.ordered
+    all.sort.reverse
+  end
+
   def self.find(slug)
     all.select  { |post| post.slug == slug }[0]
   end

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   expose(:post) { Posts.find(params[:id]) }
-  expose(:posts) { Posts.all }
+  expose(:posts) { Posts.ordered }
 
   def index
     respond_to do |format|

@@ -9,7 +9,11 @@ class Post
   def formated_date
     @published_at.strftime("%B %d, %Y") if @published_at
   end
-
+  
+  def <=>(other)
+    self.published_at <=> other.published_at
+  end
+  
   private
 
   def extract_content_from_file(file)
