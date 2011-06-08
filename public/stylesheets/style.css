@@ -63,7 +63,8 @@
   .post-header a:visited {
     color: #235e8c; }
   .post-header a {
-    text-decoration: none; }
+    text-decoration: none;
+    color: #235e8c; }
   .post-header .date {
     color: #666666;
     font-family: "Quattrocento Sans", Arial;
