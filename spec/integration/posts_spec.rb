@@ -1,14 +1,17 @@
 require 'spec_helper'
 
 feature "The Home Page" do
-  scenario "should list all  posts" do
-    PostFactory.create('post_1', :title => "cool post", :body => "this is a cool post")
-    PostFactory.create('post_2', :title => "this is another cool post", :body => "this is a cool post")
-    PostFactory.create('post_3', :title => "too much coolness", :body => "this is a cool post")
+  scenario "should list all posts titles and headers" do
+    PostFactory.create('post_1', :title => "title 1", :header => "header 1" ,:body => "this is a cool post")
+    PostFactory.create('post_2', :title => "title 2", :header => "header 2" ,:body => "this is a cool post")
+    PostFactory.create('post_3', :title => "title 3", :header => "header 3", :body => "this is a cool post")
     visit root_path
-    page.should have_content("this is a cool post")
-    page.should have_content("this is another cool post")
-    page.should have_content("too much coolness")
+    page.should have_content("title 1")
+    page.should have_content("header 1")
+    page.should have_content("title 2")
+    page.should have_content("header 2")
+    page.should have_content("title 3")
+    page.should have_content("header 3")
   end
 
   scenario "should lead to post details page" do
