@@ -4,12 +4,17 @@ describe "Post" do
   describe "created from a file" do
     before(:each) do
       @post = PostFactory.create('post_1', :title => "test post", 
+                                           :header => "post header",
                                            :published_at => "05/08/1986",
                                            :body => "# Title\ncontent")
     end
     
     it "has a title" do
       @post.title.should == "test post"
+    end
+
+    it "has a header" do
+      @post.header.should == "post header"
     end
 
     it "has a published_at date" do
