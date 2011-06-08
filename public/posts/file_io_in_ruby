@@ -1,6 +1,6 @@
 title: Ruby File IO Primer - Part 1 - The File Class
 header: The first part of a series on Ruby File IO, detailing the File Class
-published_at: "05/06/2011"
+published_at: "06/06/2011"
 ***
 Ruby offers a very powefull API for File IO, allowing for very complex 
 operations with very little code, but the myriad of methods and classes with 

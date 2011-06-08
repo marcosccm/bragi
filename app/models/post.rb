@@ -39,7 +39,7 @@ class Post
   end
 
   def load_published_at(meta)
-    @published_at = Date.parse meta["published_at"]
+    @published_at = Date.strptime(meta["published_at"], "%d/%m/%Y")
   end
 
   def load_body(body = "")
