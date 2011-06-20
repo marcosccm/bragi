@@ -1,0 +1,90 @@
+title: Ruby File IO Primer - Part 2 - The Dir Class
+header: The second part of a series on Ruby File IO, detailing the Dir Class
+published_at: "19/06/2011"
+***
+Continuing our series on Ruby File IO API, we will now take a deeper look at the *Dir* class
+
+### The Dir Class
+
+The *Dir* class main purpose is to offer facilities for quering, iterating and filtering over filesystem 
+directories entries. It also offers some basic methods for creating and removing directories. Let's go over those first.
+
+### Creating a Directory
+
+You create a new directory on the filesystem by passing it's path (full or relative) to the *Dir.mkdir* method.
+This method will throw an *Errno::EEXIST* error if something with that path already exists, or an 
+*SystemCallError* if the dir cannot be created due to OS permissions.
+
+All the relative paths (including the ones passed to the *File* class methods) are derived from the current 
+working directory path, accessed through the *Dir.pwd* method. You can change the pwd using *Dir.chdir*. To help 
+with the pwd hopping, you can pass a block to the *chdir* method and the pwd will be reset after its execution.
+
+<pre class="brush: ruby">
+  Dir.pwd
+  >> "/home/marcos/code"
+  Dir.mkdir("test")
+  Dir.chdir("test") do
+    Dir.pwd
+    >> "/home/marcos/code/test"
+    File.new("file.rb", "w")
+  end
+  Dir.pwd
+  >> "/home/marcos/code"
+</pre>
+
+### Removing a Directory
+
+To remove a dir you pass its path to the *Dir.rmdir* method (also called *remove* and *unlink*). This method 
+can only remove empty directories and will raise a *SystemCallError* otherwise. You can get more powerfull
+directory manipulating methods on the *FileUtils* class, that will be discussed on a later part of this series.
+
+### Iterating over a Directory content
+
+The *Dir* class offers two options for iterating over the contents of a dir, the *Dir.entries* method and the 
+*Dir.glob* method. 
+
+*Dir.entries* returns an array with the name of every single entry inside the directory, including the current 
+path ("."), the parent directory ("..") and all hidden files (those with '.' before their names). The same rules
+apply to the *Dir.each* instance method, which returns an Enumerator with all the entries and acts as the base 
+for the *Enumerable* module methods.
+
+The *Dir.entries* method can be very annoying if you want to work with just the files, like on the next sample, 
+where we try (in a very contrived way) to remove all the files from a certain directory.
+
+<pre class="brush: ruby">
+  d = Dir.new("/home/marcos/code")
+  d.entries.each do |e|
+    next if e =~ /^\./
+    file = File.join(d.path, e)
+    File.delete(file) if File.file?(file) 
+  end
+</pre>
+
+A much better way to list the files in a directory is to glob then, using either the *Dir.glob* method, or the 
+very similar *Dir.[]*. These methods accept a pattern and return an array with the path of all the visible 
+files that match the given pattern. 
+
+The patterns are based on the terse shell globing syntax, where '*' represents any number of wildcard characters, 
+'**' represents all the children directories (matched recusively) and '?' represents just one wildcard. 
+
+<pre class="brush: ruby">
+  "*"         #All Files (Current Dir)
+  "help.*"    #All Files with the name help
+  "*/**/*.rb" #All Ruby Files (Current and Children dirs)
+</pre>
+
+With the globing technique, our little demo gets much more concise.
+
+<pre class="brush: ruby">
+  Dir["/home/marcos/code/*"].each { |f| File.delete(f) if File.file?(f) }
+</pre>
+
+The *Dir.glob* method also accepts flags (combined with bitwise *or* operators) to customize its behavior like 
+the *File::FNM_DOTMATCH* which includes hidden files on the result.
+
+<pre class="brush: ruby">
+  Dir.glob("rakefile")
+  >> []
+  Dir.glob("rakefile", File::FNM_CASEFOLD)
+  >> ["/home/marcos/code/Rakefile"]
+</pre>
