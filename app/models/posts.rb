@@ -18,6 +18,7 @@ class Posts
 
   private
   def self.load_posts
+    puts "loading posts"
     Dir["#{ENV['posts_path']}/*"].map { |file| Post.new(file) } 
   end
 end
