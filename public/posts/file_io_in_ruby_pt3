@@ -1,0 +1,110 @@
+title: Ruby File IO Primer - Part 3 - The Standard Library
+header: The third and final part of a series on Ruby File IO. This one details the two Standed Library components that augments the Ruby language File manipulation capabilities. The FileUtils module and the Pathname class.
+published_at: "25/06/2011"
+***
+Wraping up our series on Ruby File IO, we will now delve on the two Standard Library components that complements 
+the core ruby IO API, the *FileUtils* module and the *Pathname* class.
+
+### The *FileUtils* Module
+
+The *FileUtils* module brings an interesting approach to file manipulation, by emulating a ton of file related 
+Unix commands, and its most commonly used flags. The effects of comands like *rm -rf* and *ln -s* are done by
+calling the *FileUtils.rb_rf* and *FileUtils.ln_s* methods. 
+
+Since they follow a syntax known by most ruby developers, the *FileUtils* methods are very straightforward to 
+understand, making a list of *FileUtils* method calls really feels like a bash session. The following 
+sample ilustrates that similarity.
+
+<pre class="brush:ruby">
+  require "fileutils"
+
+  FileUtils.touch(["some_file.rb", "another_file.rb"])
+  FileUtils.mkdir("code")
+  FileUtils.mv(["another_file.rb", "../other_file.rb"], "code")
+  
+  Dir["code/*"]
+  >> ["code/some_file.rb", "code/another_file.rb"]
+  
+  FileUtils.cp_r("code", "bkp")
+  FileUtils.rm_r("code") 
+  
+  Dir["code/*"]
+  >> []
+  Dir["bkp/*"]
+  >> ["bkp/some_file.rb", "bkp/another_file.rb"]
+</pre>
+
+Like Unix commands, most *FileUtils* methods knows how to deal with multiple files by recieving arrays as parameters,like the *FileUtils.cp* method. They also accepts flags to change its behavior.
+
+<pre class="brush:ruby">
+  require "fileutils"
+
+  FileUtils.rm("a_file.rb") # removes this file
+  FileUtils.rm(Dir["bkp_*"]) # remove all files that start with bkp
+  FileUtils.rm(Dir["bkp_*"], :verbose => true) #print the equivalent stmt and remove the bkp files 
+</pre>
+
+### The Pathname Class
+
+The Pathname class represents a pathname, the location of a file on the underlying filesystem, and provides 
+facilities for querying and manipulating filepath data.  
+
+Although not universally usefull as the *FileUtils* module, the *Pathname* class can bring in a lot of niceties 
+when you need to do heavy filesystem transversing, and it is extensivily used on gems like Sprockets and Guard. 
+
+You create a *Pathname* object by passing a string with the filesystem path to the class constructor. You can also
+get *Pathnames* by joining two paths with *Pathname.join* or *Pathname.+*. Also, most *Pathname* methods return 
+*Pathname* objects.
+
+<pre class="brush: ruby">
+  require "pathname"
+
+  path = Pathname.new("/home/marcos/projects")
+  >> <Pathname:"/home/marcos/projects">
+  
+  other = path.join("bragi")
+  >> <Pathname:"/home/marcos/projects/bragi">
+</pre>
+
+A *Pathname* object can provide a lot of information, like its parent path, dirname, wheter it is a absolute or 
+relative path, wether it represents a file or not, and so on.
+
+<pre class="brush: ruby">
+  require "pathname"
+
+  path = Pathname.new("/home/marcos/projects")
+  path.dirname   # Pathname: "/home/marcos/"
+  path.basename  # Pathname: "/home/marcos/projects"
+  path.parent    # Pathname: "/home/marcos/"
+  path.file?     # false
+  path.absolute? # true
+  path.relative? # false
+</pre>
+
+*Pathname.ascend*  iterates and yields a *Pathname* object for each element in a given path on an ascending order.
+*Pathname.children* returns an array with all the sibilings of a given path, and *Pathname.each_child* iterates 
+over then.
+
+<pre class="brush: ruby">
+  require "pathname"
+
+  path = Pathname.new("/home/marcos/projects")
+  path.ascend { |x| puts x }
+  >> Pathname: "/home/marcos/projects"
+  >> Pathname: "/home/marcos/"
+  >> Pathname: "/home/"
+  >> Pathname: "/"
+
+  path.each_child { |x| puts x }
+  >> Pathname: "/home/marcos/projects/bragi"
+  >> Pathname: "/home/marcos/projects/mimir"
+  >> Pathname: "/home/marcos/projects/guard-clone"
+</pre>
+
+*Pathname* also offers facades for many methods found on the *File* and *Dir* classes, allowing you to write 
+cleaner code in some cases.
+
+One gotcha is that most *Pathname* methods, including its constructor, are just wrappers around string 
+manipulations, and will happily accept any string you throw at it, but some methods, like *Pathname.children* and 
+*Pathname.realpath* access the filesystem and will raise errors if the *Pathname* object does not represent a 
+filesystem path.  
