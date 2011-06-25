@@ -50,24 +50,24 @@ The Pathname class represents a pathname, the location of a file on the underlyi
 facilities for querying and manipulating filepath data.  
 
 Although not universally usefull as the *FileUtils* module, the *Pathname* class can bring in a lot of niceties 
-when you need to do heavy filesystem transversing, and it is extensivily used on gems like Sprockets and Guard. 
+when you need to do heavy filesystem transversing, and it is used on gems like Sprockets and Carrierwave. 
 
 You create a *Pathname* object by passing a string with the filesystem path to the class constructor. You can also
-get *Pathnames* by joining two paths with *Pathname.join* or *Pathname.+*. Also, most *Pathname* methods return 
+get *Pathnames* by joining two paths with *Pathname.join* or *Pathname.+*. Also, most *Pathname* methods return
 *Pathname* objects.
 
 <pre class="brush: ruby">
   require "pathname"
 
   path = Pathname.new("/home/marcos/projects")
-  >> <Pathname:"/home/marcos/projects">
+  >> Pathname:"/home/marcos/projects"
   
   other = path.join("bragi")
-  >> <Pathname:"/home/marcos/projects/bragi">
+  >> Pathname:"/home/marcos/projects/bragi"
 </pre>
 
-A *Pathname* object can provide a lot of information, like its parent path, dirname, wheter it is a absolute or 
-relative path, wether it represents a file or not, and so on.
+A *Pathname* object can provide a lot of information about its underlying filepath, like its parent path, dirname,
+whether it is a absolute or relative path, whether it represents a file or not, and so on.
 
 <pre class="brush: ruby">
   require "pathname"
@@ -106,5 +106,5 @@ cleaner code in some cases.
 
 One gotcha is that most *Pathname* methods, including its constructor, are just wrappers around string 
 manipulations, and will happily accept any string you throw at it, but some methods, like *Pathname.children* and 
-*Pathname.realpath* access the filesystem and will raise errors if the *Pathname* object does not represent a 
-filesystem path.  
+*Pathname.realpath* access the filesystem and will raise errors if the *Pathname* object does not represent an 
+actual filesystem path.  
