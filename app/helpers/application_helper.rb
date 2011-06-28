@@ -1,2 +1,3 @@
-  module ApplicationHelper
-  end
+module ApplicationHelper
+  include TweetButton
+end
