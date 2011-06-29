@@ -1,0 +1,31 @@
+title: Ruby File IO Primer - Bonus Round - Building a Watchr Clone
+header: A bonus round for our Ruby File IO series. On this post we apply the techniques described on the earlier parts to build a small clone of the Watchr Gem
+published_at: "29/06/2011"
+***
+
+To put the techniques described on earlier parts of the Ruby File IO series in practice, we are going to build a 
+small clone of the *Watchr* Gem.
+
+### The *Watchr* Gem
+
+The *Watchr* gem is a nifty continuous-testing tool. It watches for changes on your project's files and executes
+a code block when that happens. *Watchr* offers a simple DSL to help you specify what code gets executed on which
+file changes, show on the following sample
+
+<pre class="brush:ruby">
+  watch("spec/**/*.rb") { |md| system "rake spec #{md[0]} }
+
+  # runs rspec when a rb file inside the spec folder
+  # changes
+</pre>
+
+### Our Clone
+
+With your little clone, we are going to do things a little differenlty. 
+
+First, *Watchr" relies on an underlying  lib to throw events when a filesystem change occurs. To not lose focus 
+on our demo, we are going to use a simpler (and much less performant) solution of running a loop and constatly 
+checking the files for changes, based on the last change data.
+
+Second, *Watchr* uses regexp to specify the watched files, we are going to use the *Dir* glob syntax, because its
+more intere
