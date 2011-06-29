@@ -104,7 +104,7 @@ very quickly. Here are some cool samples.
   File.open("lib/file.rb").count{ |line| line.starts_with?("#") } 
 
   #get all the file require lines as an array
-  File.open("lib/file.rb").grep(/^include/)
+  File.open("lib/file.rb").grep(/^require/)
 
   #the avg of words from each line
   File.open("lib/file.rb").inject(0) do |total, line|
