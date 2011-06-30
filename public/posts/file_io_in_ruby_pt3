@@ -1,8 +1,8 @@
 title: Ruby File IO Primer - Part 3 - The Standard Library
-header: The third and final part of a series on Ruby File IO. This one details the two Standed Library components that augments the Ruby language File manipulation capabilities. The FileUtils module and the Pathname class.
+header: The third part of a series on Ruby File IO. This one details the two Standed Library components that augments the Ruby language File manipulation capabilities. The FileUtils module and the Pathname class.
 published_at: "25/06/2011"
 ***
-Wraping up our series on Ruby File IO, we will now delve on the two Standard Library components that complements 
+Following our series on Ruby File IO, we will now delve on the two Standard Library components that complements 
 the core ruby IO API, the *FileUtils* module and the *Pathname* class.
 
 ### The *FileUtils* Module

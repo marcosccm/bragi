@@ -1,5 +1,5 @@
-title: Ruby File IO Primer - Bonus Round - Building a Watchr Clone
-header: A bonus round for our Ruby File IO series. On this post we apply the techniques described on the earlier parts to build a small clone of the Watchr Gem
+title: Ruby File IO Primer - Path 4 - Building a Clone of the Watchr Gem
+header: On this post we apply the techniques described on the earlier parts of the Ruby File series to build a small clone of the Watchr Gem
 published_at: "29/06/2011"
 ***
 
@@ -9,23 +9,139 @@ small clone of the *Watchr* Gem.
 ### The *Watchr* Gem
 
 The *Watchr* gem is a nifty continuous-testing tool. It watches for changes on your project's files and executes
-a code block when that happens. *Watchr* offers a simple DSL to help you specify what code gets executed on which
-file changes, show on the following sample
+a code block when that happens. *Watchr* offers a simple, regexp based, DSL to let the user specify what code gets
+executed when which file changes, ilustrated on the following sample:
 
 <pre class="brush:ruby">
-  watch("spec/**/*.rb") { |md| system "rake spec #{md[0]} }
+  watch("spec/.*\.rb") { |md| system "rake spec #{md[0]}" }
+  # run rspec when a .rb file inside the spec folder changes
 
-  # runs rspec when a rb file inside the spec folder
-  # changes
+  watch("app/model/.*\.rb") { |md| system "rake spec #{md[0]}"  }
+  # run tests a model class changes 
 </pre>
 
-### Our Clone
+*Watchr* is "sold" as a testing tool, but it can do much more, like calling the *coffescript* compiler when a 
+*.coffee* file changes, compiling some assets when you change a *.css* file and any other filesystem change based 
+task you can imagine.
 
-With your little clone, we are going to do things a little differenlty. 
+### Stalker, Our Little Clone
 
-First, *Watchr" relies on an underlying  lib to throw events when a filesystem change occurs. To not lose focus 
-on our demo, we are going to use a simpler (and much less performant) solution of running a loop and constatly 
-checking the files for changes, based on the last change data.
+Our purpose with this clone is to practice the Ruby File IO API, consolidating our knowledge about it, so we are 
+going to do things a little differently then the original gem. 
 
-Second, *Watchr* uses regexp to specify the watched files, we are going to use the *Dir* glob syntax, because its
-more intere
+*Watchr" relies on other libs to fire events when a filesystem change occurs. To not lose focus on our demo, 
+we are going to use a simpler (and problably much less performant) solution of running a loop and 
+constantly checking the watched files for changes, based on its filesize.
+
+We are also goin to change the DSL, *Watchr* uses regexp to specify the watched files, we are going to 
+use the *Dir* glob syntax, because it's more relevant to our study and also more suitable to describe 
+filesytem paths.
+
+<pre class="brush:ruby">
+  watch("spec/.*\.rb") { |md| system "rake spec #{md[0]}" } # Watchr
+  stalk("spec/*.rb") { |f| system "rake spec #{f}" } # Stalker
+</pre>
+
+The first class in our script is the *Stalker* class. It's responsible for providing the DSL to our clients and 
+also for the storage and execution of all file watching rules. (Yay for the SRP!)
+
+<pre class="brush:ruby">
+class Stalker
+  attr_reader :paths
+
+  def initialize(script)
+    @handlers = {}
+    @paths = []
+    instance_eval(script.read)  
+  end
+
+  def stalk(glob_path, &block)
+    Dir[glob_path].each do |p|
+      path = Pathname.new(p)
+      add_handler(path, block) if path.file?
+    end
+  end
+  
+  def add_handler(path, block)
+    if @handlers.key? path
+      @handlers[path] << block  
+    else
+      @handlers[path] = [ block ]
+      @paths << path
+    end
+  end 
+  
+  def handle(path)
+    @handlers[path].each { |handler| handler.call(path) }
+  end
+end
+</pre>
+
+The constructor recives a script object (either a *File* or a *Pathname*) and instance_eval its whole content, 
+accessed by the *read* method, providing the DSLy powers of our script.
+
+The *stalk* method recieves a glob path and a block, and stores the block as a handler,for all the files matched 
+by the glob_path. This feat is achieved by the usage of the *Dir.[]* method, that allows us to offer the power 
+of the dir globbing to our clients and eliminates any worries about bad or empty rules, since *Dir.[]* 
+just returns an empty array on those cases. We also call *Pathname.new* and *Pathname.file?* on all results 
+returned from the *Dir* call, to ensure we only store rules for files and not directories.
+
+The *add_handler* method is standard ruby stuff, adding the block as an handler to an array stored on hash keyed 
+by the *Pathname* instances. The *handle* method recives a file path and calls all the stored handlers for that 
+path.
+ 
+The second class is the *Engine* class, responsible for running the loop and detecting any changes on the stalked
+files.
+
+<pre class="brush:ruby">
+class Engine
+  def initialize(script_path)
+    script = Pathname.new(script_path)
+    if script.file?
+      @stalker = Stalker.new(Pathname.new(script_path))
+      init_file_sizes
+    else
+      puts "Attempt to load the script file from #{script_path}. File not found."
+    end
+  end
+
+  def run
+    loop do
+      @sizes.each do |file, size|
+        if file.size != size 
+          @sizes[file] = file.size
+          @stalker.handle(file) 
+        end
+      end
+      sleep 1
+    end
+  end
+  
+  def init_file_sizes
+    @sizes = Hash.new(0)  
+    @stalker.paths.each do |path|  
+      @sizes[path] = path.size
+    end
+  end
+end
+</pre>
+
+The constructor recieves the path to the script contaning the DSL calls, checks if it's a real file,  and 
+then creates a *Stalker* instance with it. After, it initializes a hash containing the size of all the stalked 
+files.
+
+The *run* method executes indefinitely on a loop, testing each stalked file for a change on its size, 
+calling the *Stalker.stalk* method when it finds one. We could also use the last modification date, calling the 
+*mdate* method, for the file change comparison.
+
+The rest of the script is just the initialization of the file stalking proccess
+
+<pre class="brush:ruby">
+puts "Start stalking..."
+Engine.new(ARGV.first || "watchlist").run
+</pre>
+
+And that's it! With just 66 lines of Ruby we built a clone of a very usefull Gem, showcasing the eloquency of the
+Ruby File IO API. 
+
+The whole code for this sample is on [github] (https://github.com/marcosccm/lil_watchr_clone)
