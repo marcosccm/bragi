@@ -7,6 +7,7 @@ gem "haml"
 gem "redcarpet"
 gem "jquery-rails"
 gem "thin"
+gem "foreman"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
