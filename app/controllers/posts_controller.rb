@@ -1,9 +1,4 @@
 class PostsController < ApplicationController
-  expose(:post) { Posts.find(params[:id]) }
-  expose(:posts) { Posts.ordered }
-
-  caches_action :index, :show
-
   def index
     respond_to do |format|
       format.html
@@ -13,4 +8,16 @@ class PostsController < ApplicationController
 
   def show
   end
+
+  private
+
+  def post 
+    Posts.find(params[:id])
+  end
+  helper_method :post
+
+  def posts
+    Posts.ordered
+  end
+  helper_method :posts
 end
