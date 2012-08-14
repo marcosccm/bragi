@@ -1,14 +1,11 @@
 = content_for :title, "Bragi - #{post.title}"
 = content_for :meta_description, post.title
 
-
 .post
   %h2= post.title 
   %span.date= post.formated_date
   = raw post.body
   .section
-    %g:plusone
-    = tweet_button(:count => "horizontal", :via => "")
     %div#disqus_thread
 :javascript
   var disqus_developer = 1;

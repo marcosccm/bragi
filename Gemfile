@@ -6,7 +6,6 @@ gem 'heroku'
 gem "haml"
 gem "redcarpet"
 gem "jquery-rails"
-gem "tweet-button"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
