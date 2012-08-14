@@ -1,8 +1,13 @@
 = content_for :title, "Marcos Castilho"
 = content_for :meta_description, "My ramblings about Web Programming, Ruby, Javascript and other topics"
 
-- posts.each do |post|
-  .post-header
-    %h2= link_to post.title, post_path(post.slug)
-    %span.date= post.formated_date
-    %span.header= post.header
+#posts
+  = render 'header'
+
+  - posts.each do |post|
+    %article
+      %header
+        %h2= link_to post.title, post_path(post.slug)
+        %span.date= post.formated_date
+      %p
+        = post.header

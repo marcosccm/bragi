@@ -1,115 +1,80 @@
-$light-gray: #D3CFD0
 $medium-gray: #666
 $dark-gray: #404749
 $blue: #235E8C
+
+@mixin header($size, $color)
+  color: $color
+  font-family: 'Yanone Kaffeesatz', Garamond, serif
+  font-weight: normal
+  font-size: $size
+  a:visited
+    color: $color
+  a
+    color: $color
+
+a
+  color: $blue
+  text-decoration: none
+
+a:visited
+  color: $blue
+  text-decoration: none
+
+p
+  color: $dark-gray
+  line-height: 1.5em
+  font-family: 'Quattrocento Sans', Arial
+
+h1
+  @include header(3.5em, $dark-gray)
+
+h2
+  @include header(2em, $blue)
+  margin: 0
+
+h3
+  @include header(1.5em, $blue)
+
+article
+  margin-bottom: 30px
 
 #wrapper
   width: 960px
   margin: 0 auto
   font-size: 20px
-  p
-    color: $dark-gray
-    line-height: 1.5em
-    font-family: 'Quattrocento Sans', Arial
 
-#links
-  float: left
-  width: 300px
-  list-style: none
-  padding: 20px 0
-  li
-    float: right
-    margin-left: 10px
-    a
-      color: $dark-gray
-      font-family: 'Yanone Kaffeesatz', Garamond, serif
-      font-size: 1.5em
-      text-decoration: none
-    a:hover
-      text-decoration: underline
+span.date
+  color: $medium-gray
+  font-family: 'Quattrocento Sans', Arial
+  font-size: 0.9em
 
-#title
-  width: 650px
-  float: left
-  padding: 20px 0
-  margin-bottom: 20px
+header.main
+  margin: 20px 0 40px 0 
 
   h1
-    font-family: 'Yanone Kaffeesatz', Garamond, serif
-    font-weight: normal
-    font-size: 3.5em
-    color: $dark-gray
-    margin: 0
-    a
-      text-decoration: none
-      color: $dark-gray
-    a:visited
-      text-decoration: none
-      color: $dark-gray
+    display: inline
+  nav
+    float: right
+    ul
+      list-style: none
+      li
+        display: inline
+        margin-left: 10px
+        a
+          color: $dark-gray
+          font-family: 'Yanone Kaffeesatz', Garamond, serif
+          font-size: 1.5em
+        a:hover
+          text-decoration: underline
 
-#content
-  float: left
-  width: 100%
-
-.post-header
-  padding-bottom: 10px
-  margin-bottom: 20px
-  width: 100%
-  
-  h2
-    color: $blue
-    font-family: 'Yanone Kaffeesatz', Garamond, serif
-    margin: 0
-    font-weight: normal
-    font-size: 1.5em
-  a:visited
-    color: $blue
-  a
-    text-decoration: none
-    color: $blue
-  .date
-    color: $medium-gray
-    font-family: 'Quattrocento Sans', Arial
-    font-size: 0.9em
-  .header
-    display: block
-    font-family: 'Quattrocento Sans', Arial
-    margin-top: 15px
-    color: $dark-gray
-    font-size: 1.1em
-  
-.post
-  border-bottom: dashed 1px $dark-gray
-  padding-bottom: 10px
-  margin-bottom: 10px
-  width: 100%
-
-  h2
-    color: $blue
-    font-family: 'Yanone Kaffeesatz', Garamond, serif
-    margin: 0
-    font-weight: normal
-    font-size: 2em
-  h3
-    color: $blue
-    font-family: 'Yanone Kaffeesatz', Garamond, serif
-    font-weight: normal
-    font-size: 1.5em
-  a:visited
-    color: $blue
-  a
-    color: $blue
-    text-decoration: none
-  .date
-    color: $medium-gray
-    font-family: 'Quattrocento Sans', Arial
-    font-size: 0.9em
-  blockquote
-    margin-left: 20px
-    padding-left: 10px
-    border-left: solid 2px $dark-gray
-    p
-      font-family: 'times new roman'
+#post
+  article
+    blockquote
+      margin-left: 20px
+      padding-left: 10px
+      border-left: solid 2px $dark-gray
+      p
+        font-family: 'times new roman'
 
 #disqus_thread
   color: $dark-gray
