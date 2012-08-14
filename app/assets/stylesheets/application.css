@@ -10,6 +10,6 @@
  *
  *= require shCore
  *= require shCoreDefault
- *= require style
+ *= require bragi
  *= require_self
  */
