@@ -1,6 +1,6 @@
-$medium-gray: #666
-$dark-gray: #404749
-$blue: #235E8C
+$text: #404749
+$header: darken(#728A7C,8)
+$header-alternative: lighten($header, 30)
 
 @mixin header($size, $color)
   color: $color
@@ -13,27 +13,27 @@ $blue: #235E8C
     color: $color
 
 a
-  color: $blue
+  color: $header
   text-decoration: none
 
 a:visited
-  color: $blue
+  color: $header
   text-decoration: none
 
 p
-  color: $dark-gray
+  color: $text
   line-height: 1.5em
   font-family: 'Quattrocento Sans', Arial
 
 h1
-  @include header(3.5em, $dark-gray)
+  @include header(3.5em, $text)
 
 h2
-  @include header(2em, $blue)
+  @include header(2em, $header)
   margin: 0
 
 h3
-  @include header(1.5em, $blue)
+  @include header(1.5em, $header)
 
 article
   margin-bottom: 30px
@@ -44,7 +44,7 @@ article
   font-size: 20px
 
 span.date
-  color: $medium-gray
+  color: $header-alternative
   font-family: 'Quattrocento Sans', Arial
   font-size: 0.9em
 
@@ -61,7 +61,7 @@ header.main
         display: inline
         margin-left: 10px
         a
-          color: $dark-gray
+          color: $text
           font-family: 'Yanone Kaffeesatz', Garamond, serif
           font-size: 1.5em
         a:hover
@@ -72,12 +72,12 @@ header.main
     blockquote
       margin-left: 20px
       padding-left: 10px
-      border-left: solid 2px $dark-gray
+      border-left: solid 2px $text
       p
         font-family: 'times new roman'
 
 #disqus_thread
-  color: $dark-gray
+  color: $text
   font-family: Verdana, Arial
   a
-    color: $blue
+    color: $header
