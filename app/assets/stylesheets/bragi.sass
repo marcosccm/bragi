@@ -35,6 +35,10 @@ h2
 h3
   @include header(1.5em, $header)
 
+ul
+  margin: 0
+  list-style: none
+
 article
   margin-bottom: 30px
 
@@ -55,20 +59,28 @@ header.main
     display: inline
   nav
     float: right
-    ul
-      list-style: none
-      li
-        display: inline
-        margin-left: 10px
-        a
-          color: $text
-          font-family: 'Yanone Kaffeesatz', Garamond, serif
-          font-size: 1.5em
-        a:hover
-          text-decoration: underline
+    ul li
+      display: inline
+      margin-left: 10px
+      a
+        color: $text
+        font-family: 'Yanone Kaffeesatz', Garamond, serif
+        font-size: 1.5em
+      a:hover
+        text-decoration: underline
 
 #post
+  header h1
+    font-size: 1.5em
   article
+    header h2 
+      font-size: 3.5em
+      .date
+        font-size: 0.3em 
+    header h3
+      margin: 5px 0
+      color: $header-alternative
+      
     blockquote
       margin-left: 20px
       padding-left: 10px
