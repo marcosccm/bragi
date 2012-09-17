@@ -1,0 +1,63 @@
+title: Why rubyists ignore concurrency?
+header: An attempt to rationalize why we rubyists love to completely ignore threads and concurrency
+published_at: "16/09/2012"
+***
+
+Concurrency is a very interesting subject in the ruby community. On one hand, you 
+have language implementators and gem writers going through a lot of hurdles to implement 
+it correctly. On the other hand, you have the community at large doing its best effort to 
+ignore the whole thing and still writing single threaded apps. Why?
+
+It is a hard problem
+--------------------
+
+Concurreny is a very hard thing to do. You can get yourself bitten by the slightest mistake
+and nasty bugs that are impossible to debug are a constant reality. But then, so is every
+other software problem you approach without consious thought and good techniques. 
+
+The multicore overlords did not arrived
+---------------------------------------
+
+Functional programming zealots are making profecies about the end of OO programming due to our 'multicore' future for quite some time.
+They have a very valid point, it is getting ridicolous to ignore concurrency while even our smartphones have multiple cores, but the
+doomsayers didn't took into account the force of the cloud.
+
+Instead of worring about how to get the best use of the 10 cores of a server
+you can just boot 10 AWS instances, who needs concurrency when you can just throw money at the problem.
+
+The language itself does not care
+---------------------------------
+
+Ruby 1.8 and 1.9 have the infamous GIL. If you dont now what that is please go read
+Matt Aimonetti's  [very good post about it](http://merbist.com/2011/10/03/about-concurrency-and-the-gil/). The GIL was a very concious decision of Matz and the early ruby developers to just ignore concurrency issues while they were building a awesome dynamic language. 
+
+They probably had very good reasons for that, and the lock is not as inneficient as people think, but still, it created the ruby culture of simply ignoring thread safety and concurrency issues. 
+
+There's been lots of great advances in how to do concurrent programming in other languages. Things like Go routines and channels or the use of STM in Clojure are all very 
+exciting, but the average ruby guy is still does not now what a Mutex is all about.
+
+You can live without it
+-----------------------
+
+Ok, we suck and dont use concurrency very well. But still, Ruby is being used to serve apps to a bazzilion users and generating tons of money.
+performing well under load. That's undeniable proof that you can ignore threads and live happily ever after. 
+
+After all, threaded concurrency is not the only way of scaling, you can spawn of form
+process, do assyncronous computations, use a reactor and lots of other options. 
+
+These other options work very well, but they have a somewhat hidden cost of leaving ruby with a big memory footprint. You can always add more machines to the problem, but
+that dont change the fact that all of our apps could a have a very big efficient boost if we just cared about concurrency. 
+
+The Sidekiq gem is a very good example of that. Is a Resque 'clone', but build with 
+threaded and concurrency issues in mind. The result is a gem thats getting very 
+famous for saving peoples money on AWS accounts.
+
+Ignoring a problem does not solve anything
+------------------------------------------
+
+Yes concurreny is hard. Yes every single statement I made above is full of caveats.
+But even so, concurrent code does not equals bad code.There are lots good models that can help you write awesome concurrent code without tripping in mutexes on every second lineof code. 
+
+Big companies can solve this problem with money, but can your awesome but still not known startup do the same? Why we just dont use computer science instead? Ignoring threads is not doing our community any favors. The next time you add yet another node to your web farm, stop and think if adding some concurrency would not solve your problem.
+
+So please, go read something about threads, actors, or channels and bring that knowledge back into our community.
