@@ -31,7 +31,7 @@ The language itself does not care
 Ruby 1.8 and 1.9 have the infamous GIL. If you dont now what that is please go read
 Matt Aimonetti's  [very good post about it](http://merbist.com/2011/10/03/about-concurrency-and-the-gil/). The GIL was a conscious decision of Matz and the early ruby developers to just ignore concurrency issues while they were building a awesome dynamic language. 
 
-They probably had very good reasons for that, and the lock is not as inneficient as people think, but still, it created the ruby culture of simply ignore thread safety and the
+They probably had very good reasons for that, and the lock is not as inefficient as people think, but still, it created the ruby culture of simply ignore thread safety and the
 whole threaded concurrency area.
 
 While other languages are seeing great progress on writing safe and mainteinable concurrent code, with things like Go routines and channels and Clojure's use of STM, the average ruby guy is still does not now what a Mutex is all about.
