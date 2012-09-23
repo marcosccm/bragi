@@ -11,14 +11,14 @@ ignore the whole thing and still writing single threaded apps. Why?
 It is a hard problem
 --------------------
 
-Concurreny is a very hard thing to do. You can get yourself bitten by the slightest mistake
+Concurrency is a very hard thing to do. You can get yourself bitten by the slightest mistake
 and nasty bugs that are impossible to debug are a constant reality. But then, so is every
 other software problem you approach without conscious thought and good techniques. 
 
 The multicore overlords did not arrive
 --------------------------------------
 
-Functional programming zealots have been making profecies about the end of OO programming due to our 'multicore' future for quite some time.
+Functional programming zealots have been making prophecies about the end of OO programming due to our 'multicore' future for quite some time.
 They have a very valid point, it is getting ridiculous to ignore concurrency while even our smartphones have multiple cores, but the
 doomsayers didn't take into account the force of the cloud.
 
@@ -55,7 +55,7 @@ famous for saving people's money on AWS accounts.
 Ignoring a problem does not solve anything
 ------------------------------------------
 
-Yes, concurreny is hard. Yes, every single statement I made above is full of caveats.
+Yes, concurrency is hard. Yes, every single statement I made above is full of caveats.
 But, even so, concurrent code is not equal to bad code. There are a lot of good models that can help you write awesome concurrent code without tripping in mutexes on every second line of code. 
 
 Big companies can solve this problem with money, but can your awesome but still not known startup do the same? Why don't we just use computer science instead? Ignoring threads is not doing our community any favors. The next time you add yet another node to your web farm, stop and think if adding some concurrency would not solve your problem.
