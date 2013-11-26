@@ -30,7 +30,7 @@ Our purpose with this clone is to practice the Ruby File IO API, consolidating o
 going to do things a little differently then the original gem. 
 
 *Watchr" relies on other libs to fire events when a filesystem change occurs. To not lose focus on our demo, 
-we are going to use a simpler (and problably much less performant) solution of running a loop and 
+we are going to use a simpler (and probably much less performant) solution of running a loop and 
 constantly checking the watched files for changes, based on its filesize.
 
 We are also goin to change the DSL, *Watchr* uses regexp to specify the watched files, we are going to 
@@ -77,17 +77,17 @@ class Stalker
 end
 </pre>
 
-The constructor recives a script object (either a *File* or a *Pathname*) and instance_eval its whole content, 
+The constructor receives a script object (either a *File* or a *Pathname*) and instance_eval its whole content, 
 accessed by the *read* method, providing the DSLy powers of our script.
 
-The *stalk* method recieves a glob path and a block, and stores the block as a handler,for all the files matched 
+The *stalk* method receives a glob path and a block, and stores the block as a handler,for all the files matched 
 by the glob_path. This feat is achieved by the usage of the *Dir.[]* method, that allows us to offer the power 
 of the dir globbing to our clients and eliminates any worries about bad or empty rules, since *Dir.[]* 
 just returns an empty array on those cases. We also call *Pathname.new* and *Pathname.file?* on all results 
 returned from the *Dir* call, to ensure we only store rules for files and not directories.
 
 The *add_handler* method is standard ruby stuff, adding the block as an handler to an array stored on hash keyed 
-by the *Pathname* instances. The *handle* method recives a file path and calls all the stored handlers for that 
+by the *Pathname* instances. The *handle* method receives a file path and calls all the stored handlers for that 
 path.
  
 The second class is the *Engine* class, responsible for running the loop and detecting any changes on the stalked
@@ -126,7 +126,7 @@ class Engine
 end
 </pre>
 
-The constructor recieves the path to the script contaning the DSL calls, checks if it's a real file,  and 
+The constructor receives the path to the script containing the DSL calls, checks if it's a real file,  and 
 then creates a *Stalker* instance with it. After, it initializes a hash containing the size of all the stalked 
 files.
 
@@ -134,14 +134,14 @@ The *run* method executes indefinitely on a loop, testing each stalked file for 
 calling the *Stalker.stalk* method when it finds one. We could also use the last modification date, calling the 
 *mdate* method, for the file change comparison.
 
-The rest of the script is just the initialization of the file stalking proccess
+The rest of the script is just the initialization of the file stalking process
 
 <pre class="brush:ruby">
 puts "Start stalking..."
 Engine.new(ARGV.first || "watchlist").run
 </pre>
 
-And that's it! With just 66 lines of Ruby we built a clone of a very usefull Gem, showcasing the eloquency of the
+And that's it! With just 66 lines of Ruby we built a clone of a very useful Gem, showcasing the eloquence of the
 Ruby File IO API. 
 
 The whole code for this sample is on [github] (https://github.com/marcosccm/lil_watchr_clone)

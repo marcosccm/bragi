@@ -35,7 +35,7 @@ with the pwd hopping, you can pass a block to the *chdir* method and the pwd wil
 ### Removing a Directory
 
 To remove a dir you pass its path to the *Dir.rmdir* method (also called *remove* and *unlink*). This method 
-can only remove empty directories and will raise a *SystemCallError* otherwise. You can get more powerfull
+can only remove empty directories and will raise a *SystemCallError* otherwise. You can get more powerful
 directory manipulating methods on the *FileUtils* class, that will be discussed on a later part of this series.
 
 ### Iterating over a Directory content
@@ -64,8 +64,8 @@ A much better way to list the files in a directory is to glob then, using either
 very similar *Dir.[]*. These methods accept a pattern and return an array with the path of all the visible 
 files that match the given pattern. 
 
-The patterns are based on the terse shell globing syntax, where '*' represents any number of wildcard characters, 
-'**' represents all the children directories (matched recusively) and '?' represents just one wildcard. 
+The patterns are based on the terse shell globing syntax, where '*' represents any number of wildcard characters,
+'**' represents all the children directories (matched recursively) and '?' represents just one wildcard.
 
 <pre class="brush: ruby">
   "*"         #All Files (Current Dir)

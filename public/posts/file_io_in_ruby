@@ -2,21 +2,21 @@ title: Ruby File IO Primer - Part 1 - The File Class
 header: The first part of a series on Ruby File IO, detailing the File Class
 published_at: "06/06/2011"
 ***
-Ruby offers a very powefull API for File IO, allowing for very complex 
-operations with very little code, but the myriad of methods and classes with 
+Ruby offers a very powerful API for File IO, allowing for very complex
+operations with very little code, but the myriad of methods and classes with
 similar names can be a little confusing for the Ruby uneducated like me.
 
 ### The File Class
 
 The *File* class, built in the language (you don't have to require it), offers the most commonly 
-nedded facilities for manipulating files in Ruby. Like all other IO things in Ruby,
+needed facilities for manipulating files in Ruby. Like all other IO things in Ruby,
 *File* is an subclass of the *IO*, which mixes in the *Enumerable* module. 
 Let's go over the basics.
 
 ### Reading from a File
 
-The simplest way to get a file is just calling *File.new* with the corret path 
-(you get an exception otherwise). You can then call *File.read* to get the entire 
+The simplest way to get a file is just calling *File.new* with the correct path
+(you get an exception otherwise). You can then call *File.read* to get the entire
 content of the file as a string. 
 
 <pre class="brush: ruby">
@@ -25,7 +25,7 @@ content of the file as a string.
   f.close
 </pre>
 
-That may suffice for some simple uses, but most of the times we want a little more 
+That may suffice for some simple uses, but most of the times we want a little more
 control. You can read the file line by line with the *File.readline* method or the
 *File.gets* method. The difference is that *File.readline* throws an exceptions if the
 file is over, while *File.gets* just returns nil.
@@ -80,9 +80,9 @@ of bytes written into the file.
 ### Using blocks
 
 When you use the *File.new* method, you have to manually close the file with the
-*File.close* method. That is quite boring and also prone to mistakes. 
-A better aproach is the *File.open* method, that pass the file to a 
-code block and then closes the file for you. The *open* method accepts the same filemode 
+*File.close* method. That is quite boring and also prone to mistakes.
+A better approach is the *File.open* method, that pass the file to a
+code block and then closes the file for you. The *open* method accepts the same filemode
 flags as *new*. If you provide no code blocks, *File.open* is identical to *File.new*.
 
 <pre class="brush: ruby">
@@ -95,7 +95,7 @@ flags as *new*. If you provide no code blocks, *File.open* is identical to *File
 
 ### The Enumerability of Files
 
-The fact that *File* is an *Enumerable* gives the class a lof of nifty abilities.
+The fact that *File* is an *Enumerable* gives the class a lot of nifty abilities.
 Its a little strange at first, thinking about files as an array of lines, but you get used to it
 very quickly. Here are some cool samples.
 

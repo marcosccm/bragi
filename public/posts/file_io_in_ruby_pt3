@@ -1,5 +1,5 @@
 title: Ruby File IO Primer - Part 3 - The Standard Library
-header: The third part of a series on Ruby File IO. This one details the two Standed Library components that augments the Ruby language File manipulation capabilities. The FileUtils module and the Pathname class.
+header: The third part of a series on Ruby File IO. This one details the two Standard Library components that augments the Ruby language File manipulation capabilities. The FileUtils module and the Pathname class.
 published_at: "25/06/2011"
 ***
 Following our series on Ruby File IO, we will now delve on the two Standard Library components that complements 
@@ -8,12 +8,12 @@ the core ruby IO API, the *FileUtils* module and the *Pathname* class.
 ### The *FileUtils* Module
 
 The *FileUtils* module brings an interesting approach to file manipulation, by emulating a ton of file related 
-Unix commands, and its most commonly used flags. The effects of comands like *rm -rf* and *ln -s* are done by
+Unix commands, and its most commonly used flags. The effects of commands like *rm -rf* and *ln -s* are done by
 calling the *FileUtils.rb_rf* and *FileUtils.ln_s* methods. 
 
 Since they follow a syntax known by most ruby developers, the *FileUtils* methods are very straightforward to 
 understand, making a list of *FileUtils* method calls really feels like a bash session. The following 
-sample ilustrates that similarity.
+sample illustrates that similarity.
 
 <pre class="brush:ruby">
   require "fileutils"
@@ -34,7 +34,7 @@ sample ilustrates that similarity.
   >> ["bkp/some_file.rb", "bkp/another_file.rb"]
 </pre>
 
-Like Unix commands, most *FileUtils* methods knows how to deal with multiple files by recieving arrays as parameters,like the *FileUtils.cp* method. They also accepts flags to change its behavior.
+Like Unix commands, most *FileUtils* methods knows how to deal with multiple files by receiving arrays as parameters,like the *FileUtils.cp* method. They also accepts flags to change its behavior.
 
 <pre class="brush:ruby">
   require "fileutils"
@@ -49,7 +49,7 @@ Like Unix commands, most *FileUtils* methods knows how to deal with multiple fil
 The Pathname class represents a pathname, the location of a file on the underlying filesystem, and provides 
 facilities for querying and manipulating filepath data.  
 
-Although not universally usefull as the *FileUtils* module, the *Pathname* class can bring in a lot of niceties 
+Although not universally useful as the *FileUtils* module, the *Pathname* class can bring in a lot of niceties 
 when you need to do heavy filesystem transversing, and it is used on gems like Sprockets and Carrierwave. 
 
 You create a *Pathname* object by passing a string with the filesystem path to the class constructor. You can also
@@ -82,7 +82,7 @@ whether it is a absolute or relative path, whether it represents a file or not, 
 </pre>
 
 *Pathname.ascend*  iterates and yields a *Pathname* object for each element in a given path on an ascending order.
-*Pathname.children* returns an array with all the sibilings of a given path, and *Pathname.each_child* iterates 
+*Pathname.children* returns an array with all the siblings of a given path, and *Pathname.each_child* iterates 
 over then.
 
 <pre class="brush: ruby">
@@ -101,10 +101,10 @@ over then.
   >> Pathname: "/home/marcos/projects/guard-clone"
 </pre>
 
-*Pathname* also offers facades for many methods found on the *File* and *Dir* classes, allowing you to write 
+*Pathname* also offers facades for many methods found on the *File* and *Dir* classes, allowing you to write
 cleaner code in some cases.
 
-One gotcha is that most *Pathname* methods, including its constructor, are just wrappers around string 
+One gotcha is that most *Pathname* methods, including its constructor, are just wrappers around string
 manipulations, and will happily accept any string you throw at it, but some methods, like *Pathname.children* and 
 *Pathname.realpath* access the filesystem and will raise errors if the *Pathname* object does not represent an 
 actual filesystem path.  
