@@ -1,0 +1,59 @@
+title: Constructive Refactorings
+header: The first part of a series on Ruby File IO, detailing the File Class
+published_at: "08/01/2013"
+***
+Refactor is a core developer technique. Is what allows us to be agile and have 
+evolutionary design. Is a core XP practice that helps to keep the evil 
+design upfront at bay. I think every agile dev would agree with these statements.
+
+The problem is that, like every other developer term, the definition of refactoring
+has become muddled over time. Refactor is now conflated with it's more dangerous cousin,
+the Rewrite.  It got to a point where any code change, even if it actually adds functionality, is 
+being called a refactor. Month long refactoring are becoming common place in agile projects,
+they even have their own stories. 
+
+And since everybody knows refactor is core agile thing, these practices are seldom questioned
+
+### What exactly is a refactor?
+
+The canonical definition that's throw around when people try to define refactoring is one by Martin Fowler, 
+from the book Refactoring: 
+
+> Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code yet improves its internal structure.
+
+It's a fine definition, but it only explains "what" is a refactoring, not "why" or "how". 
+I think the reasons why we should do refactoring are well understood, is the *how* we 
+do it that got lost over time.
+
+Those other important aspects are very well explained on Fowler's book, in fact, on the
+main page of his refactoring website, you get a much more complete definition:
+
+> Refactoring is a disciplined technique for restructuring an existing body of code, altering its internal structure without 
+> changing its external behavior.
+>
+> Its heart is a series of small behavior preserving transformations. Each transformation (called a “refactoring”) 
+> does little, but a sequence of transformations can produce a significant restructuring. Since each refactoring is small, 
+> it’s less likely to go wrong. The system is kept fully working after each small refactoring, 
+> reducing the chances that a system can get seriously broken during the restructuring.
+
+A much more complete definition! The keywords are *disciplined* and *small*. It's 
+a iterative process, composed of many small steps, during which the system is kept working.
+The tests need to stay green! That's a far cry from the day long stream
+of broken tests present in many modern refactoring sessions.
+
+The original refactorings are presented on Fowler's using a pattern format.
+They have names, like *Extract Method* or *Replace Temp of Query*, a explanation of
+when to use the refactor and a list of steps you have to follow in order to apply them.
+
+They are meant to be applied in a conscious manner, one after the other,
+until your design is good enough for you to move forward. 
+
+When you wildly rewrite the internals of a class, you are not
+doing a refactoring, and you have a higher chance of ending up with
+broken tests and having to rollback your code.
+
+You can browse the refactoring catalog on [refactoring.com](http://refactoring.com) 
+and see the full details for each refactor on the book. 
+
+
+### Some ways to refactor on the green
