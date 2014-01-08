@@ -11,6 +11,7 @@ require 'capybara/rspec'
 
   RSpec.configure do |config|
     config.mock_with :rspec
+    config.include Capybara::DSL
 
     # clear all fixture posts before each test
     config.after :each do

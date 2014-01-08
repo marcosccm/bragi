@@ -12,7 +12,6 @@ Bragi::Application.configure do
   config.static_cache_control = "public, max-age=3600"
 
   # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -36,5 +35,6 @@ Bragi::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  config.eager_load = false
   ENV["posts_path"] = "#{::Rails.root.to_s}/spec/fixtures"
 end
