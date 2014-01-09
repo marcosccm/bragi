@@ -14,46 +14,267 @@ they even have their own stories.
 
 And since everybody knows refactor is core agile thing, these practices are seldom questioned
 
-### What exactly is a refactor?
+### The original refactorings
 
-The canonical definition that's throw around when people try to define refactoring is one by Martin Fowler, 
-from the book Refactoring: 
-
-> Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code yet improves its internal structure.
-
-It's a fine definition, but it only explains "what" is a refactoring, not "why" or "how". 
-I think the reasons why we should do refactoring are well understood, is the *how* we 
-do it that got lost over time.
-
-Those other important aspects are very well explained on Fowler's book, in fact, on the
-main page of his refactoring website, you get a much more complete definition:
+Refactorings were introduced to the large world by GMartin Fowler's book 
+[Refactoring: Improving the Design of Existing Code](http://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672),
+where Fowler writes about coding practices from legendary SmallTalkers like Kent Beck and Ward Cunningham, focusing on the so called
+refactorings. A definition from the same book:
 
 > Refactoring is a disciplined technique for restructuring an existing body of code, altering its internal structure without 
 > changing its external behavior.
 >
 > Its heart is a series of small behavior preserving transformations. Each transformation (called a “refactoring”) 
 > does little, but a sequence of transformations can produce a significant restructuring. Since each refactoring is small, 
-> it’s less likely to go wrong. The system is kept fully working after each small refactoring, 
+> it's less likely to go wrong. The system is kept fully working after each small refactoring, 
 > reducing the chances that a system can get seriously broken during the restructuring.
 
-A much more complete definition! The keywords are *disciplined* and *small*. It's 
-a iterative process, composed of many small steps, during which the system is kept working.
-The tests need to stay green! That's a far cry from the day long stream
-of broken tests present in many modern refactoring sessions.
-
-The original refactorings are presented on Fowler's using a pattern format.
+The original refactorings are presented using a pattern format.
 They have names, like *Extract Method* or *Replace Temp of Query*, a explanation of
 when to use the refactor and a list of steps you have to follow in order to apply them.
+You can browse the refactoring catalog on [refactoring.com](http://refactoring.com) 
 
 They are meant to be applied in a conscious manner, one after the other,
-until your design is good enough for you to move forward. 
+until your design is good enough for you to move forward. Words like *disciplined* and *small* present on the 
+very definition of the term.
 
-When you wildly rewrite the internals of a class, you are not
-doing a refactoring, and you have a higher chance of ending up with
-broken tests and having to rollback your code.
+When you wildly rewrite large parts of your system, you are not refactoring, even if you are just
+trying to achieve a better design. The system needs to be kept working the whole time.
+That means the tests need to stay green! The TDD flow is supposed to be Red -> Green -> Refactor, and not
+Red -> Green -> Red -> Red -> Shit -> Rollback
 
-You can browse the refactoring catalog on [refactoring.com](http://refactoring.com) 
-and see the full details for each refactor on the book. 
+## Some ways to refactor on the green
+
+Let's see how we can refactor some code while keeping the tests always
+on the green.
+
+Instead of working on some contrived User class we are going to use a real example,
+the class Request from the [Pacto](https://github.com/thoughtworks/pacto) project. You don't need to understand
+what the class does, just pay attention to the code structure and how we apply the refactorings iteratively.
+
+The class used to look like [this](https://github.com/thoughtworks/pacto/blob/b34ec66c236c53f58f82ed923011c241c3339ccb/lib/pacto/response.rb):
+
+<pre class="brush: ruby">
+module Pacto
+  class Response
+    attr_reader :status, :headers, :schema
+
+    def initialize(definition)
+      @definition = definition
+      @status = @definition['status']
+      @headers = @definition['headers']
+      @schema = @definition['body']
+    end
+
+    def instantiate
+      Faraday::Response.new(default_env)
+    end
+
+    private
+
+    def default_env
+      {}.tap do | env |
+        env[:status] = @definition['status']
+        env[:response_headers] = @definition['headers']
+        env[:body] = JSON::Generator.generate(@schema) if @schema && !@schema.empty?
+      end
+    end
+  end
+end
+</pre>
+
+We want to eliminate the method *instatiate*.  This method is forcing
+the *Pacto* codebase to deal with instances of a foreign class, *Faraday::Response*.
+The thing is that *Faraday::Response* is a very simple class, and we can easily implement
+the interface we need on the *Pacto::Response* class itself.
+
+The first step is to actually remove the method and see if any tests actually break. But wait a sec!
+What about the whole being methodical and keeping things on the green mantra?
+This trick is to see if there's any tests to break in the first place. If nothing breaks, we need
+to implement tests that cover the behavior we want to change. Refactoring without tests is not refactoring!
+
+Luckily in the codebase has a nice test coverage and the *instantiate* behavior is covered by tests. So we put
+the method back on place and move forward with the refactorings. 
+
+### 1 - Move Method
+
+We need a *Response#body* method, so we apply the Move Method refactoring to move it from the *default_env*
+definition to the *Response* class.
+
+<pre class="brush: ruby">
+module Pacto
+  class Response
+    attr_reader :status, :headers, :schema
+
+    def initialize(definition)
+      # snip
+    end
+
+    def instantiate
+      Faraday::Response.new(default_env)
+    end
+
+    def body
+      JSON::Generator.generate(@schema) if @schema && !@schema.empty?
+    end
+    
+    private
+
+    def default_env
+      {}.tap do |env|
+        env[:status] = @definition['status']
+        env[:response_headers] = @definition['headers']
+        env[:body] = body
+      end
+    end
+  end
+end
+</pre>
+
+We run the tests to make sure we didn't break anything. Since we only changed private methods
+and we kept the original structure, everything runs fine.
+
+### 2 - Change Faraday::Response to Self
+
+It turns out that step one is the only thing we need to do in order to be able to replace
+*Faraday::Response* with *self on the *instantiate* method
 
 
-### Some ways to refactor on the green
+<pre class="brush: ruby">
+# Inside Pacto::Response class
+
+def instantiate
+  self
+end
+
+</pre>
+
+Right now that's probably the most useless method ever, but remember, we want to keep the 
+tests green. This method will not live for long in the codebase, but there is still a couple
+of changes to do.
+
+### 3 - Remove the unused default_env method
+
+So we have a private method that's not used anymore. The safest refactoring you can have.
+
+<pre class="brush: ruby">
+module Pacto
+  class Response
+    attr_reader :status, :headers, :schema
+
+    def initialize(definition)
+      @definition = definition
+      @status = @definition['status']
+      @headers = @definition['headers']
+      @schema = @definition['body']
+    end
+
+    def instantiate
+      self
+    end
+
+    def body
+      JSON::Generator.generate(@schema) if @schema && !@schema.empty?
+    end
+  end
+end
+</pre>
+
+### 4 - Remove unused @definition field
+
+Again, we have a unused private field. Another safe step
+
+<pre class="brush: ruby">
+module Pacto
+  class Response
+    attr_reader :status, :headers, :schema
+
+    def initialize(definition)
+      @status = definition['status']
+      @headers = definition['headers']
+      @schema = definition['body']
+    end
+    
+    # snip
+  end
+end
+</pre>
+
+### 5 - Remove excessive conditionals
+
+On the *Response#body* method we have some conditionals that could be easily replaced by
+a default value for the *schema* attribute. The surprise for this step is that after
+we just removed the conditionals, all tests still passed. So we rollback the changes,
+add the relevant tests, see they break and finally replace the conditionals for a default value
+
+
+<pre class="brush: ruby">
+module Pacto
+  class Response
+    attr_reader :status, :headers, :schema
+
+    def initialize(definition)
+      # other attrs
+      @schema = definition['body'] || {}
+    end
+
+    def instantiate
+      self
+    end
+
+    def body
+      JSON::Generator.generate(schema)
+    end
+  end
+end
+</pre>
+
+### 6 - Remove instantiate method
+
+Finally the class is looking good enough and we can move to the most dangerous
+refactoring of removing the method *instantiate* and just using *Response* instances.
+
+For this step we simply delete the method and fix all the broken specs. Thankfully
+in this case, the *Response* class was used only by another class, so it was a very
+straightforward process. For cases were you have many dependencies, you might want to
+let the offending method leave for a little longer while on work on each case seperatly.
+
+### The end result
+
+<pre class="brush: ruby">
+module Pacto
+  class Response
+    attr_reader :status, :headers, :schema
+
+    def initialize(definition)
+      @status = definition['status']
+      @headers = definition['headers']
+      @schema = definition['body'] || {}
+    end
+
+    def body
+      @body ||= JSON::Generator.generate(schema)
+    end
+  end
+end
+</pre>
+
+There's still some things we could do on this class, like turn it into a *Struct*, but it's
+good enough. Knowing when to stop refactoring is as important as knowing how to do it, the
+world is full of yaks and rabbit holes.
+
+### Conclusion
+
+You might be thing this whole thing was a bunch of dev melodrama nothing, that a good developer 
+could have done all the changes in a fell swoop. Well, if you look at the simple example, that's true. 
+But we face much nastier problems in our daily projects.
+
+By using a more methodical approach refactoring we had a fun coding session, that went quite fast.
+All the commits were short and precise and the coolest thing is that I actually pushed the individual
+steps to the master branch in the *Pacto* code base, since we kept the whole project working all the time.
+
+The next time you see an ugly class that's begging for some love, fight the urge to just hack it away 
+and try to be more methodical about your refactorings. Argue with your teammates whenever you
+see some someone creating a refactor branch, or diving in a month long refactor epic.
+
+Green tests always!
