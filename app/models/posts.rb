@@ -1,6 +1,6 @@
 class Posts 
   def self.all
-    load_posts
+    @posts ||= load_posts
   end
 
   def self.ordered
