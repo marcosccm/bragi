@@ -116,7 +116,7 @@ question is actually covered by tests. A quick way to do it is to just do
 the refactoring, in our case simply remove the *instantiate* method and see
 if anything breaks. 
 
-If you get zero red tests, that's not a good thing! That means that you have no
+If you get zero red tests, that's not a good thing! That means you have no
 way to be sure that your refactorings didn't impacted the codebase, no safety
 net to catch your mistakes. There's a famous phrase that says "refactorings
 without tests is just changing shit". If that happens, just rollback your
