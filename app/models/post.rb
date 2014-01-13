@@ -43,7 +43,7 @@ class Post
   end
 
   def load_body(body = "")
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    markdown = Redcarpet::Markdown.new(CodeRenderer, fenced_code_blocks: true)
     @body = markdown.render(body)
   end
 end

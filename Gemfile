@@ -8,6 +8,7 @@ gem 'redcarpet'
 gem 'jquery-rails'
 gem 'thin'
 gem 'foreman'
+gem 'pygments.rb'
 
 gem 'sass-rails'
 gem 'coffee-rails'

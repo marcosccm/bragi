@@ -8,6 +8,9 @@ html
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
 
+    style type="text/css"
+      = Pygments.css
+
   body
     div#wrapper
       = yield 
