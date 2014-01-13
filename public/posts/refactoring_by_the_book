@@ -72,7 +72,7 @@ example, the class *Request* from the
 understand what the class does, just pay attention to the code structure and how
 we apply the refactorings iteratively.
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   class Response
     attr_reader :status, :headers, :schema
@@ -99,7 +99,7 @@ module Pacto
     end
   end
 end
-</pre>
+```
 
 This class has many small issues, but the main thing I want to do is to remove
 the *instatiate* method.  This method is forcing the *Pacto* codebase to deal
@@ -135,7 +135,7 @@ initialization. Let's apply a slightly altered [Move
 Method](http://www.refactoring.com/catalog/moveMethod.html) refactoring to move
 it from the *default_env* definition to the *Response* class.
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   class Response
     attr_reader :status, :headers, :schema
@@ -163,7 +163,7 @@ module Pacto
     end
   end
 end
-</pre>
+```
 
 We run the tests to make sure we didn't break anything. Since we only changed
 private methods and we kept the original structure, everything runs fine.
@@ -174,14 +174,14 @@ It turns out that step one is the only thing we need to do in order to be able
 to replace *Faraday::Response* with *self on the *instantiate* method, so we 
 change the method.
 
-<pre class="brush: ruby">
+```ruby
 # Inside Pacto::Response class
 
 def instantiate
   self
 end
 
-</pre>
+```
 
 That's probably the most useless method ever, but remember, we want to
 keep the tests green. By allowing this travesty to live a little longer on
@@ -199,7 +199,7 @@ eyeballing a class. Always run your tests.
 Thankfully *Pacto* is not a metaprogramming happy codebase, so our tests still
 run green after removing the *default_env*.
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   class Response
     attr_reader :status, :headers, :schema
@@ -220,13 +220,13 @@ module Pacto
     end
   end
 end
-</pre>
+```
 
 ### Step 4 - Remove unused @definition field
 
 Another piece of private unused code, same rules as the previous step.
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   class Response
     attr_reader :status, :headers, :schema
@@ -240,7 +240,7 @@ module Pacto
     # snip
   end
 end
-</pre>
+```
 
 ### Step 5 - Remove excessive conditionals
 
@@ -249,7 +249,7 @@ replaced by a default value for the *schema* attribute. Doing a "let's see if
 something break" trick we discover that this conditionals are not under test,
 so first we add the relevant specs:
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   describe Response do
     # some other specs
@@ -267,11 +267,11 @@ module Pacto
     # more specs
   end
 end
-</pre>
+```
 
 Then we replace the conditionals with a default value for the *schema* field:
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   class Response
     attr_reader :status, :headers, :schema
@@ -290,7 +290,7 @@ module Pacto
     end
   end
 end
-</pre>
+```
 
 ### Step 6 - Remove instantiate method
 
@@ -304,7 +304,7 @@ so it was a very straightforward process. For cases were you have many
 dependencies, you might let the offending method live for a little
 longer and replace each use separately on work on each case separately.
 
-<pre class="brush: ruby">
+```ruby
 module Pacto
   class Response
     attr_reader :status, :headers, :schema
@@ -321,7 +321,7 @@ module Pacto
     end
   end
 end
-</pre>
+```
 
 There's still some things we could do on this class, like turn it into a
 *Struct*, but it's good enough. Knowing when to stop refactoring is as important
