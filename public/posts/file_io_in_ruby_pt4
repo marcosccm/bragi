@@ -12,13 +12,13 @@ The *Watchr* gem is a nifty continuous-testing tool. It watches for changes on y
 a code block when that happens. *Watchr* offers a simple, regexp based, DSL to let the user specify what code gets
 executed when which file changes, ilustrated on the following sample:
 
-<pre class="brush:ruby">
+```ruby
   watch("spec/.*\.rb") { |md| system "rake spec #{md[0]}" }
   # run rspec when a .rb file inside the spec folder changes
 
   watch("app/model/.*\.rb") { |md| system "rake spec #{md[0]}"  }
   # run tests a model class changes 
-</pre>
+```
 
 *Watchr* is "sold" as a testing tool, but it can do much more, like calling the *coffescript* compiler when a 
 *.coffee* file changes, compiling some assets when you change a *.css* file and any other filesystem change based 
@@ -37,15 +37,15 @@ We are also goin to change the DSL, *Watchr* uses regexp to specify the watched 
 use the *Dir* glob syntax, because it's more relevant to our study and also more suitable to describe 
 filesytem paths.
 
-<pre class="brush:ruby">
+```ruby
   watch("spec/.*\.rb") { |md| system "rake spec #{md[0]}" } # Watchr
   stalk("spec/*.rb") { |f| system "rake spec #{f}" } # Stalker
-</pre>
+```
 
 The first class in our script is the *Stalker* class. It's responsible for providing the DSL to our clients and 
 also for the storage and execution of all file watching rules. (Yay for the SRP!)
 
-<pre class="brush:ruby">
+```ruby
 class Stalker
   attr_reader :paths
 
@@ -75,7 +75,7 @@ class Stalker
     @handlers[path].each { |handler| handler.call(path) }
   end
 end
-</pre>
+```
 
 The constructor receives a script object (either a *File* or a *Pathname*) and instance_eval its whole content, 
 accessed by the *read* method, providing the DSLy powers of our script.
@@ -93,7 +93,7 @@ path.
 The second class is the *Engine* class, responsible for running the loop and detecting any changes on the stalked
 files.
 
-<pre class="brush:ruby">
+```ruby
 class Engine
   def initialize(script_path)
     script = Pathname.new(script_path)
@@ -124,7 +124,7 @@ class Engine
     end
   end
 end
-</pre>
+```
 
 The constructor receives the path to the script containing the DSL calls, checks if it's a real file,  and 
 then creates a *Stalker* instance with it. After, it initializes a hash containing the size of all the stalked 
@@ -136,10 +136,10 @@ calling the *Stalker.stalk* method when it finds one. We could also use the last
 
 The rest of the script is just the initialization of the file stalking process
 
-<pre class="brush:ruby">
+```ruby
 puts "Start stalking..."
 Engine.new(ARGV.first || "watchlist").run
-</pre>
+```
 
 And that's it! With just 66 lines of Ruby we built a clone of a very useful Gem, showcasing the eloquence of the
 Ruby File IO API. 

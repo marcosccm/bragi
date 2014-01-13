@@ -19,7 +19,7 @@ All the relative paths (including the ones passed to the *File* class methods) a
 working directory path, accessed through the *Dir.pwd* method. You can change the pwd using *Dir.chdir*. To help 
 with the pwd hopping, you can pass a block to the *chdir* method and the pwd will be reset after its execution.
 
-<pre class="brush: ruby">
+```ruby
   Dir.pwd
   >> "/home/marcos/code"
   Dir.mkdir("test")
@@ -30,7 +30,7 @@ with the pwd hopping, you can pass a block to the *chdir* method and the pwd wil
   end
   Dir.pwd
   >> "/home/marcos/code"
-</pre>
+```
 
 ### Removing a Directory
 
@@ -51,14 +51,14 @@ for the *Enumerable* module methods.
 The *Dir.entries* method can be very annoying if you want to work with just the files, like on the next sample, 
 where we try (in a very contrived way) to remove all the files from a certain directory.
 
-<pre class="brush: ruby">
+```ruby
   d = Dir.new("/home/marcos/code")
   d.entries.each do |e|
     next if e =~ /^\./
     file = File.join(d.path, e)
     File.delete(file) if File.file?(file) 
   end
-</pre>
+```
 
 A much better way to list the files in a directory is to glob then, using either the *Dir.glob* method, or the 
 very similar *Dir.[]*. These methods accept a pattern and return an array with the path of all the visible 
@@ -67,24 +67,24 @@ files that match the given pattern.
 The patterns are based on the terse shell globing syntax, where '*' represents any number of wildcard characters,
 '**' represents all the children directories (matched recursively) and '?' represents just one wildcard.
 
-<pre class="brush: ruby">
+```ruby
   "*"         #All Files (Current Dir)
   "help.*"    #All Files with the name help
   "*/**/*.rb" #All Ruby Files (Current and Children dirs)
-</pre>
+```
 
 With the globing technique, our little demo gets much more concise.
 
-<pre class="brush: ruby">
+```ruby
   Dir["/home/marcos/code/*"].each { |f| File.delete(f) if File.file?(f) }
-</pre>
+```
 
 The *Dir.glob* method also accepts flags (combined with bitwise *or* operators) to customize its behavior like 
 the *File::FNM_DOTMATCH* which includes hidden files on the result.
 
-<pre class="brush: ruby">
+```ruby
   Dir.glob("rakefile")
   >> []
   Dir.glob("rakefile", File::FNM_CASEFOLD)
   >> ["/home/marcos/code/Rakefile"]
-</pre>
+```

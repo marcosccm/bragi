@@ -15,7 +15,7 @@ Since they follow a syntax known by most ruby developers, the *FileUtils* method
 understand, making a list of *FileUtils* method calls really feels like a bash session. The following 
 sample illustrates that similarity.
 
-<pre class="brush:ruby">
+```ruby
   require "fileutils"
 
   FileUtils.touch(["some_file.rb", "another_file.rb"])
@@ -32,17 +32,17 @@ sample illustrates that similarity.
   >> []
   Dir["bkp/*"]
   >> ["bkp/some_file.rb", "bkp/another_file.rb"]
-</pre>
+```
 
 Like Unix commands, most *FileUtils* methods knows how to deal with multiple files by receiving arrays as parameters,like the *FileUtils.cp* method. They also accepts flags to change its behavior.
 
-<pre class="brush:ruby">
+```ruby
   require "fileutils"
 
   FileUtils.rm("a_file.rb") # removes this file
   FileUtils.rm(Dir["bkp_*"]) # remove all files that start with bkp
   FileUtils.rm(Dir["bkp_*"], :verbose => true) #print the equivalent stmt and remove the bkp files 
-</pre>
+```
 
 ### The Pathname Class
 
@@ -56,7 +56,7 @@ You create a *Pathname* object by passing a string with the filesystem path to t
 get *Pathnames* by joining two paths with *Pathname.join* or *Pathname.+*. Also, most *Pathname* methods return
 *Pathname* objects.
 
-<pre class="brush: ruby">
+```ruby
   require "pathname"
 
   path = Pathname.new("/home/marcos/projects")
@@ -64,12 +64,12 @@ get *Pathnames* by joining two paths with *Pathname.join* or *Pathname.+*. Also,
   
   other = path.join("bragi")
   >> Pathname:"/home/marcos/projects/bragi"
-</pre>
+```
 
 A *Pathname* object can provide a lot of information about its underlying filepath, like its parent path, dirname,
 whether it is a absolute or relative path, whether it represents a file or not, and so on.
 
-<pre class="brush: ruby">
+```ruby
   require "pathname"
 
   path = Pathname.new("/home/marcos/projects")
@@ -79,13 +79,13 @@ whether it is a absolute or relative path, whether it represents a file or not, 
   path.file?     # false
   path.absolute? # true
   path.relative? # false
-</pre>
+```
 
 *Pathname.ascend*  iterates and yields a *Pathname* object for each element in a given path on an ascending order.
 *Pathname.children* returns an array with all the siblings of a given path, and *Pathname.each_child* iterates 
 over then.
 
-<pre class="brush: ruby">
+```ruby
   require "pathname"
 
   path = Pathname.new("/home/marcos/projects")
@@ -99,7 +99,7 @@ over then.
   >> Pathname: "/home/marcos/projects/bragi"
   >> Pathname: "/home/marcos/projects/mimir"
   >> Pathname: "/home/marcos/projects/guard-clone"
-</pre>
+```
 
 *Pathname* also offers facades for many methods found on the *File* and *Dir* classes, allowing you to write
 cleaner code in some cases.
