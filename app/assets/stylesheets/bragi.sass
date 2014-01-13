@@ -1,4 +1,5 @@
 $text: #404749
+$blockquote-text: lighten(#404749,10)
 $header: darken(#728A7C,8)
 $header-alternative: lighten($header, 30)
 $code-block: lighten($header, 56)
@@ -103,7 +104,9 @@ header.main
       padding-left: 10px
       border-left: solid 2px $text
       p
+        color: $blockquote-text
         font-family: 'times new roman'
+        font-style: italic
 
 #disqus_thread
   color: $text
