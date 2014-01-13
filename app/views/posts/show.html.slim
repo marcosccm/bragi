@@ -1,6 +1,10 @@
 = content_for :head do  
   title=post.title
   meta name="description" content=post.title
+  meta name="og:title" content=post.title
+  meta name="og:type" content="article"
+  meta name="og:url" content=post_url(post.slug)
+  meta name="og:description" content=post.header
 #post
   = render 'header'
   article 
