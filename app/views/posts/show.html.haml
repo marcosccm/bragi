@@ -1,5 +1,6 @@
-= content_for :title, post.title
-= content_for :meta_description, post.title
+= content_for :head do
+  %title= post.title
+  %meta{ :name => "description", :content => post.title }
 
 #post
   = render 'header'

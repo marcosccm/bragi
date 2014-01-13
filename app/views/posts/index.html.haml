@@ -1,5 +1,6 @@
-= content_for :title, "Marcos Castilho"
-= content_for :meta_description, "My ramblings about Web Programming, Ruby, Javascript and other topics"
+= content_for :head do
+  %title Marcos Castilho
+  %meta{ :name => "description", :content =>"My ramblings about Web Programming, Ruby, Javascript and other topics" }
 
 #posts
   = render 'header'

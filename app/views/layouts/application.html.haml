@@ -1,8 +1,7 @@
 !!! 5
 %html
 %head
-  %title= yield :title
-  %meta{ :name => "description", :content => "#{yield :meta_description }" } 
+  = yield :head
   %link{ :href => "http://fonts.googleapis.com/css?family=Quattrocento+Sans:regular", :rel => "stylesheet", :type => "text/css" }
   %link{ :href => "http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:300", :rel => "stylesheet", :type => "text/css" }
   
