@@ -1,6 +1,8 @@
 $text: #404749
 $header: darken(#728A7C,8)
 $header-alternative: lighten($header, 30)
+$code-block: lighten($header, 56)
+$code-block-header: lighten($header, 46)
 
 @mixin header($size, $color)
   color: $color
@@ -13,20 +15,27 @@ $header-alternative: lighten($header, 30)
     color: $color
 
 a
-  color: lighten($header, 20)
+  color: lighten($header, 15)
   text-decoration: none
 
 a:visited
-  color: lighten($header, 20)
+  color: lighten($header, 15)
   text-decoration: none
 
 p
   color: $text
   line-height: 1.5em
   font-family: 'Quattrocento Sans', Arial
+  text-rendering: optimizeLegibility
+
+pre
+  background-color: $code-block
+  border: solid 2px $code-block-header
+  padding: 20px
+  overflow-x: scroll
 
 h1
-  @include header(3.5em, $text)
+  @include header(3.0em, $text)
 
 h2
   @include header(2em, $header)
@@ -43,9 +52,13 @@ article
   margin-bottom: 30px
 
 #wrapper
-  width: 960px
+  width: 620px
   margin: 0 auto
   font-size: 20px
+  padding: 20px
+
+  @media (max-width: 620px)
+    width: auto
 
 span.date
   color: $header-alternative
@@ -57,6 +70,7 @@ header.main
   margin: 20px 0 40px 0 
 
   h1
+
     display: inline
   nav
     float: right
@@ -95,4 +109,5 @@ header.main
   color: $text
   font-family: Verdana, Arial
   a
+  
     color: $header
