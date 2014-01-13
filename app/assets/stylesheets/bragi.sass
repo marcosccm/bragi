@@ -16,6 +16,14 @@ $code-block-header: lighten($header, 46)
   a
     color: $color
 
+@mixin container
+  width: 620px
+  margin: 0 auto
+  padding: 20px
+
+  @media (max-width: 620px)
+    width: auto
+
 a
   color: lighten($header, 15)
   text-decoration: none
@@ -56,13 +64,20 @@ article
   margin-bottom: 30px
 
 #wrapper
-  width: 620px
-  margin: 0 auto
+  @include container
   font-size: 20px
-  padding: 20px
 
-  @media (max-width: 620px)
-    width: auto
+nav
+  @include container
+  text-align: center
+  font-size: 2.0em
+  a
+    padding: 10px
+    color: $text
+  a:visited
+    color: $text
+  a:hover
+    color: $light-text
 
 span.date
   color: $header-alternative
@@ -72,17 +87,6 @@ span.date
 
 header.main
   margin: 20px 0 40px 0 
-
-  h1
-    display: inline
-  nav
-    float: right
-    a
-      font-size: 1.7em
-      margin-left: 20px
-      color: $text
-    a:hover
-      color: $light-text
 
 #post
   header h1
@@ -106,10 +110,3 @@ header.main
         color: $blockquote-text
         font-family: 'times new roman'
         font-style: italic
-
-#disqus_thread
-  color: $text
-  font-family: Verdana, Arial
-  a
-  
-    color: $header
