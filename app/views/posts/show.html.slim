@@ -1,21 +1,20 @@
-= content_for :head do
-  %title= post.title
-  %meta{ :name => "description", :content => post.title }
-
+= content_for :head do  
+  title=post.title
+  meta name="description" content=post.title
 #post
   = render 'header'
-  %article 
-    %header
-      %h2
+  article 
+    header
+      h2
         = post.title 
-        %span.date= post.formated_date
+        span.date= post.formated_date
 
     = raw post.body
 
 #comments
-  %div#disqus_thread
+  div#disqus_thread
 
-:javascript
+javascript:
   var disqus_shortname = 'marcosccmcom';
 
   (function() {
