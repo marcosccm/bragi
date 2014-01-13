@@ -1,4 +1,5 @@
 $text: #404749
+$light-text: lighten(#404749,20)
 $blockquote-text: lighten(#404749,10)
 $header: darken(#728A7C,8)
 $header-alternative: lighten($header, 30)
@@ -37,6 +38,8 @@ pre
 
 h1
   @include header(3.0em, $text)
+  @media (max-width: 620px)
+    font-size: 1.7em
 
 h2
   @include header(2em, $header)
@@ -71,23 +74,19 @@ header.main
   margin: 20px 0 40px 0 
 
   h1
-
     display: inline
   nav
     float: right
-    ul li
-      display: inline
-      margin-left: 10px
-      a
-        color: $text
-        font-family: 'Yanone Kaffeesatz', Garamond, serif
-        font-size: 1.5em
-      a:hover
-        text-decoration: underline
+    a
+      font-size: 1.7em
+      margin-left: 20px
+      color: $text
+    a:hover
+      color: $light-text
 
 #post
   header h1
-    font-size: 1.5em
+    font-size: 1.7em
   article
     header
       margin-bottom: 30px
