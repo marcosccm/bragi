@@ -1,0 +1,97 @@
+title: The Little Schemer
+header: A really cool resource about the lisp language family and functional thinking
+published_at: "05/02/2014"
+***
+My next project has a little bit of Clojure on it, so I decided that is finally
+time to embrace the parenthesis. I have some experience of functional languages,
+mainly Haskell and Scala, but I've never programmed in anything lisp related.
+
+Instead of diving into Clojure right out of the bat, I am going to be a hipster
+and start with Scheme. More specificaly, I am following the exercises laid out
+on the amazing [The Little
+Schemer](http://www.amazon.com/The-Little-Schemer-4th-Edition/dp/0262560992)
+book
+
+### Why not a Clojure book?
+
+Lisp syntax is very simple and for most versions, the standard set of functions
+is really small. The whole thing fits in the back of a napkin, and maybe that
+simplicity is what inspired many authors to write amazing lisp books. Or
+rampant LSD consumption, who knows... 
+
+And boy, the books are amazing! Legends like [Structure and Interpretation of
+Computer
+Programs](http://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871),
+[The Land of the Lisp](http://landoflisp.com/) and the Little Schemer/Lisper
+itself, make any other language books look dry and boring in comparison. 
+
+Clojure is a proper modern language, with a rich set of standard libraries and
+all the Java baggage, which makes it probably amazing for real development work,
+but can be a hindrance when you want to learn the essence and philosophy of the
+Lisp family. 
+
+Anyway, the books are fun, what else do you need to know? 
+
+### Installing Scheme
+
+The Lisp language family is ridiculously huge, it's one of the oldest languages
+after all, with active language development happening nonstop since the
+sixties.  Most of the implementations are from a time where even the computers
+themselves where not standardized. Finding the right version is actually quite
+challenging for the Lisp uninitiated
+
+To follow the book you need a Scheme implementation and a nice REPL.
+The easiest one to install for me was the [Petite Chez Scheme](http://www.scheme.com/download/). 
+Just select the proper version for your system and it should just work. 
+
+A gotcha to look for, at least on the 64bit OSX version, is that the runner
+has very little memory management capabilities. Any infinite recursion,
+something that happens very frequent to lisp newbies, can freeze your whole system
+
+### A very special book
+
+The Little Schemer is entirely written as a series of questions and answers, something
+like this:
+
+> Is this an s-expression?  
+> xyz
+
+> Yes, all atoms are s-expressions
+
+This is what is called the *Socratic Method*, the questions are used to
+stimulate you to think critically about a subject and arrive at your own
+conclusions. 
+
+In a programming book this style feels very weird at the
+beginning, but after a while the questions put you in a very nice and easy
+reading pace.
+
+The magic of this book is that, in only 200 pages, it goes from totally basic
+definitions to some really complex topics, all in a single narrative flow. The
+use of the questions has a "slowly boiling frog" effect, you don't feel the
+increase in complexity until you notice yourself deriving a Y-combinator. 
+
+The book presents a set of five laws and ten commandments,
+that start very simple but grow over the book to encompass a very complete guide
+on writing recursive programs in scheme. 
+
+> *The Seventh Commandment*  
+> Simplify only after the function is correct
+
+> *The Eight Commandment*  
+> Use help functions to abstract from representations
+
+> *The Ninth Commandment*  
+> Abstract common patterns with a new function
+
+
+Also included are some solid explanations for many topics we usually struggle to
+understand, like recursion and the halting problem. The book ends with
+the crowning jewel of every scheme book, a implementation of Scheme itself.
+Can you imagine if a Java or even Ruby book tried to do that?
+
+### Conclusion
+
+The Little Schemer surely lives up to it's reputation, a proof that programming
+books can be short and fun. Totally recommended for anyone looking to expand his 
+horizons on functional thinking and recursion. Go read it!
