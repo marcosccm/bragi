@@ -1,17 +1,14 @@
 source 'http://rubygems.org'
-ruby "2.1.0"
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.2.1'
 
 gem 'slim'
 gem 'redcarpet'
-gem 'jquery-rails'
-gem 'thin'
+gem 'puma'
 gem 'foreman'
 gem 'pygments.rb'
 
 gem 'sass-rails'
-gem 'coffee-rails'
 gem 'uglifier'
 
 group :development, :test do
